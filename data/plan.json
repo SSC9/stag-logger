@@ -1,0 +1,4033 @@
+{
+ "block": "block1",
+ "version": 1,
+ "exercises": {
+  "box_squat": {
+   "name": "Barbell or goblet box squat",
+   "db_id": "Box_Squat",
+   "regions": [
+    "quads",
+    "glutes"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "barbell",
+   "muscle": "quads",
+   "images": [
+    "img/Box_Squat/0.jpg",
+    "img/Box_Squat/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "db_bench_press": {
+   "name": "DB bench press",
+   "db_id": "Dumbbell_Bench_Press",
+   "regions": [
+    "chest",
+    "triceps"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "chest",
+   "images": [
+    "img/Dumbbell_Bench_Press/0.jpg",
+    "img/Dumbbell_Bench_Press/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "one_arm_db_row": {
+   "name": "One-arm DB row",
+   "db_id": "One-Arm_Dumbbell_Row",
+   "regions": [
+    "lats",
+    "biceps"
+   ],
+   "rest_s": 120,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "upper back/lats",
+   "images": [
+    "img/One-Arm_Dumbbell_Row/0.jpg",
+    "img/One-Arm_Dumbbell_Row/1.jpg"
+   ],
+   "unilateral": true
+  },
+  "romanian_deadlift": {
+   "name": "Romanian deadlift",
+   "db_id": "Romanian_Deadlift",
+   "regions": [
+    "hamstrings",
+    "glutes"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "barbell",
+   "muscle": "hamstrings/glutes",
+   "images": [
+    "img/Romanian_Deadlift/0.jpg",
+    "img/Romanian_Deadlift/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "db_lateral_raise": {
+   "name": "DB lateral raise",
+   "db_id": "Side_Lateral_Raise",
+   "regions": [
+    "side_delts"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "side delts",
+   "images": [
+    "img/Side_Lateral_Raise/0.jpg",
+    "img/Side_Lateral_Raise/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "incline_db_curl": {
+   "name": "Incline DB curl",
+   "db_id": "Incline_Dumbbell_Curl",
+   "regions": [
+    "biceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "biceps",
+   "images": [
+    "img/Incline_Dumbbell_Curl/0.jpg",
+    "img/Incline_Dumbbell_Curl/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "overhead_db_triceps_extension": {
+   "name": "Overhead DB triceps extension",
+   "db_id": "Standing_Dumbbell_Triceps_Extension",
+   "regions": [
+    "triceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "triceps",
+   "images": [
+    "img/Standing_Dumbbell_Triceps_Extension/0.jpg",
+    "img/Standing_Dumbbell_Triceps_Extension/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "calf_raise_db": {
+   "name": "Standing calf raise (DB single-leg on step)",
+   "db_id": "Standing_Dumbbell_Calf_Raise",
+   "regions": [
+    "calves"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "calves",
+   "images": [
+    "img/Standing_Dumbbell_Calf_Raise/0.jpg",
+    "img/Standing_Dumbbell_Calf_Raise/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "leg_press": {
+   "name": "Leg press or hack squat",
+   "db_id": "Leg_Press",
+   "regions": [
+    "quads",
+    "glutes"
+   ],
+   "rest_s": 150,
+   "step_lb": 10,
+   "equipment": "machine",
+   "muscle": "quads",
+   "images": [
+    "img/Leg_Press/0.jpg",
+    "img/Leg_Press/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "incline_press": {
+   "name": "Incline DB or machine press",
+   "db_id": "Incline_Dumbbell_Press",
+   "regions": [
+    "chest",
+    "triceps",
+    "side_delts"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "chest",
+   "images": [
+    "img/Incline_Dumbbell_Press/0.jpg",
+    "img/Incline_Dumbbell_Press/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "lat_pulldown": {
+   "name": "Lat pulldown",
+   "db_id": "Wide-Grip_Lat_Pulldown",
+   "regions": [
+    "lats",
+    "biceps"
+   ],
+   "rest_s": 120,
+   "step_lb": 5,
+   "equipment": "cable",
+   "muscle": "upper back/lats",
+   "images": [
+    "img/Wide-Grip_Lat_Pulldown/0.jpg",
+    "img/Wide-Grip_Lat_Pulldown/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "seated_cable_row": {
+   "name": "Seated cable row",
+   "db_id": "Seated_Cable_Rows",
+   "regions": [
+    "lats",
+    "biceps"
+   ],
+   "rest_s": 120,
+   "step_lb": 5,
+   "equipment": "cable",
+   "muscle": "upper back/lats",
+   "images": [
+    "img/Seated_Cable_Rows/0.jpg",
+    "img/Seated_Cable_Rows/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "lying_leg_curl": {
+   "name": "Lying leg curl",
+   "db_id": "Lying_Leg_Curls",
+   "regions": [
+    "hamstrings"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "machine",
+   "muscle": "hamstrings",
+   "images": [
+    "img/Lying_Leg_Curls/0.jpg",
+    "img/Lying_Leg_Curls/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "cable_lateral_raise": {
+   "name": "Cable lateral raise",
+   "db_id": "Cable_Seated_Lateral_Raise",
+   "regions": [
+    "side_delts"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "cable",
+   "muscle": "side delts",
+   "images": [
+    "img/Cable_Seated_Lateral_Raise/0.jpg",
+    "img/Cable_Seated_Lateral_Raise/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "rear_delt_machine": {
+   "name": "Reverse pec-deck or face pull",
+   "db_id": "Reverse_Machine_Flyes",
+   "regions": [
+    "rear_delts"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "machine",
+   "muscle": "rear delts",
+   "images": [
+    "img/Reverse_Machine_Flyes/0.jpg",
+    "img/Reverse_Machine_Flyes/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "cable_curl": {
+   "name": "Cable curl",
+   "db_id": "Standing_Biceps_Cable_Curl",
+   "regions": [
+    "biceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "cable",
+   "muscle": "biceps",
+   "images": [
+    "img/Standing_Biceps_Cable_Curl/0.jpg",
+    "img/Standing_Biceps_Cable_Curl/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "rope_pushdown": {
+   "name": "Rope pushdown",
+   "db_id": "Triceps_Pushdown_-_Rope_Attachment",
+   "regions": [
+    "triceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "cable",
+   "muscle": "triceps",
+   "images": [
+    "img/Triceps_Pushdown_-_Rope_Attachment/0.jpg",
+    "img/Triceps_Pushdown_-_Rope_Attachment/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "calf_raise_machine": {
+   "name": "Standing calf raise (machine)",
+   "db_id": "Standing_Calf_Raises",
+   "regions": [
+    "calves"
+   ],
+   "rest_s": 90,
+   "step_lb": 10,
+   "equipment": "machine",
+   "muscle": "calves",
+   "images": [
+    "img/Standing_Calf_Raises/0.jpg",
+    "img/Standing_Calf_Raises/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "cable_crunch": {
+   "name": "Cable crunch",
+   "db_id": "Cable_Crunch",
+   "regions": [
+    "abs"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "cable",
+   "muscle": "abs",
+   "images": [
+    "img/Cable_Crunch/0.jpg",
+    "img/Cable_Crunch/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "db_overhead_press": {
+   "name": "Seated DB overhead press",
+   "db_id": "Dumbbell_Shoulder_Press",
+   "regions": [
+    "side_delts",
+    "triceps"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "delts/triceps",
+   "images": [
+    "img/Dumbbell_Shoulder_Press/0.jpg",
+    "img/Dumbbell_Shoulder_Press/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "pull_up": {
+   "name": "Pull-up or chin-up (band-assisted if needed)",
+   "db_id": "Pullups",
+   "regions": [
+    "lats",
+    "biceps"
+   ],
+   "rest_s": 150,
+   "step_lb": 5,
+   "equipment": "body only",
+   "muscle": "upper back/lats",
+   "images": [
+    "img/Pullups/0.jpg",
+    "img/Pullups/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "split_squat": {
+   "name": "Split squat, controlled tempo",
+   "db_id": "Split_Squat_with_Dumbbells",
+   "regions": [
+    "quads",
+    "glutes"
+   ],
+   "rest_s": 120,
+   "step_lb": 5,
+   "equipment": "dumbbell",
+   "muscle": "quads/glutes",
+   "images": [
+    "img/Split_Squat_with_Dumbbells/0.jpg",
+    "img/Split_Squat_with_Dumbbells/1.jpg"
+   ],
+   "unilateral": true
+  },
+  "hip_thrust": {
+   "name": "DB hip thrust or glute bridge",
+   "db_id": "Barbell_Glute_Bridge",
+   "regions": [
+    "glutes",
+    "hamstrings"
+   ],
+   "rest_s": 120,
+   "step_lb": 5,
+   "equipment": "barbell",
+   "muscle": "glutes",
+   "images": [
+    "img/Barbell_Glute_Bridge/0.jpg",
+    "img/Barbell_Glute_Bridge/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "incline_pushup_fly": {
+   "name": "Incline push-up or DB fly",
+   "db_id": "Incline_Dumbbell_Flyes",
+   "regions": [
+    "chest"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "chest",
+   "images": [
+    "img/Incline_Dumbbell_Flyes/0.jpg",
+    "img/Incline_Dumbbell_Flyes/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "rear_delt_db_raise": {
+   "name": "Rear-delt DB raise",
+   "db_id": "Seated_Bent-Over_Rear_Delt_Raise",
+   "regions": [
+    "rear_delts"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "rear delts",
+   "images": [
+    "img/Seated_Bent-Over_Rear_Delt_Raise/0.jpg",
+    "img/Seated_Bent-Over_Rear_Delt_Raise/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "hammer_curl": {
+   "name": "Hammer curl",
+   "db_id": "Hammer_Curls",
+   "regions": [
+    "biceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "dumbbell",
+   "muscle": "biceps",
+   "images": [
+    "img/Hammer_Curls/0.jpg",
+    "img/Hammer_Curls/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "skull_crusher": {
+   "name": "Skull crusher or DB overhead extension",
+   "db_id": "EZ-Bar_Skullcrusher",
+   "regions": [
+    "triceps"
+   ],
+   "rest_s": 90,
+   "step_lb": 2.5,
+   "equipment": "e-z curl bar",
+   "muscle": "triceps",
+   "images": [
+    "img/EZ-Bar_Skullcrusher/0.jpg",
+    "img/EZ-Bar_Skullcrusher/1.jpg"
+   ],
+   "unilateral": false
+  },
+  "weighted_crunch_leg_raise": {
+   "name": "Weighted crunch or hanging leg raise",
+   "db_id": "Hanging_Leg_Raise",
+   "regions": [
+    "abs"
+   ],
+   "rest_s": 90,
+   "step_lb": 5,
+   "equipment": "body only",
+   "muscle": "abs",
+   "images": [
+    "img/Hanging_Leg_Raise/0.jpg",
+    "img/Hanging_Leg_Raise/1.jpg"
+   ],
+   "unilateral": false
+  }
+ },
+ "sessions": [
+  {
+   "id": "W01A",
+   "week": 1,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W01B",
+   "week": 1,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W01C",
+   "week": 1,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 3,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W02A",
+   "week": 2,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W02B",
+   "week": 2,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W02C",
+   "week": 2,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 3,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W03A",
+   "week": 3,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W03B",
+   "week": 3,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W03C",
+   "week": 3,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 3,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W04A",
+   "week": 4,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W04B",
+   "week": 4,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W04C",
+   "week": 4,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 4,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W05A",
+   "week": 5,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W05B",
+   "week": 5,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W05C",
+   "week": 5,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 4,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W06A",
+   "week": 6,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  },
+  {
+   "id": "W06B",
+   "week": 6,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  },
+  {
+   "id": "W06C",
+   "week": 6,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 2,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; no abrupt lateral loading; deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  },
+  {
+   "id": "W07A",
+   "week": 7,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W07B",
+   "week": 7,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 4,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W07C",
+   "week": 7,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 4,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W08A",
+   "week": 8,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W08B",
+   "week": 8,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 6,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W08C",
+   "week": 8,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 5,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W09A",
+   "week": 9,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W09B",
+   "week": 9,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 6,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W09C",
+   "week": 9,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 5,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W10A",
+   "week": 10,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W10B",
+   "week": 10,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 6,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W10C",
+   "week": 10,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 5,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W11A",
+   "week": 11,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W11B",
+   "week": 11,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 5,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 6,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W11C",
+   "week": 11,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 3,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 5,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": "left first; no abrupt lateral loading"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 5,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 5,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 4,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": ""
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "1-3",
+     "notes": "pair with rest periods"
+    }
+   ],
+   "deload": false
+  },
+  {
+   "id": "W12A",
+   "week": 12,
+   "day": "Mon",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "box_squat",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "db_bench_press",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "one_arm_db_row",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "romanian_deadlift",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "incline_db_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "overhead_db_triceps_extension",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "calf_raise_db",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  },
+  {
+   "id": "W12B",
+   "week": 12,
+   "day": "Wed",
+   "gym": "work",
+   "items": [
+    {
+     "order": 1,
+     "key": "leg_press",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "incline_press",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "lat_pulldown",
+     "sets": 3,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "seated_cable_row",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "lying_leg_curl",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "cable_lateral_raise",
+     "sets": 4,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_machine",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "cable_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 9,
+     "key": "rope_pushdown",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_machine",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    },
+    {
+     "order": 11,
+     "key": "cable_crunch",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  },
+  {
+   "id": "W12C",
+   "week": 12,
+   "day": "Fri",
+   "gym": "apartment",
+   "items": [
+    {
+     "order": 1,
+     "key": "db_overhead_press",
+     "sets": 2,
+     "rep_low": 6,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 2,
+     "key": "pull_up",
+     "sets": 3,
+     "rep_low": 5,
+     "rep_high": 10,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 3,
+     "key": "split_squat",
+     "sets": 2,
+     "rep_low": 8,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "left first; no abrupt lateral loading; deload: same weight, fewer sets"
+    },
+    {
+     "order": 4,
+     "key": "hip_thrust",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 12,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 5,
+     "key": "incline_pushup_fly",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 6,
+     "key": "db_lateral_raise",
+     "sets": 3,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 7,
+     "key": "rear_delt_db_raise",
+     "sets": 2,
+     "rep_low": 12,
+     "rep_high": 20,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 8,
+     "key": "hammer_curl",
+     "sets": 3,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 9,
+     "key": "skull_crusher",
+     "sets": 2,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "deload: same weight, fewer sets"
+    },
+    {
+     "order": 10,
+     "key": "calf_raise_db",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    },
+    {
+     "order": 11,
+     "key": "weighted_crunch_leg_raise",
+     "sets": 1,
+     "rep_low": 10,
+     "rep_high": 15,
+     "target_rir": "3",
+     "notes": "pair with rest periods; deload: same weight, fewer sets"
+    }
+   ],
+   "deload": true
+  }
+ ]
+}

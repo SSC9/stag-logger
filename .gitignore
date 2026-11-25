@@ -1,0 +1,9 @@
+# Personal data must never be committed (this repo is public).
+*.csv
+local/
+exports/
+baselines*
+*.local.*
+.DS_Store
+.claude/
+node_modules/
