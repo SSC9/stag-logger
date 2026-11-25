@@ -1,467 +1,1076 @@
 {
  "block": "block1",
- "version": 1,
+ "version": 2,
  "exercises": {
   "box_squat": {
    "name": "Barbell or goblet box squat",
-   "db_id": "Box_Squat",
+   "muscle": "quads",
    "regions": [
     "quads",
     "glutes"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "barbell",
-   "muscle": "quads",
-   "images": [
-    "img/Box_Squat/0.jpg",
-    "img/Box_Squat/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "box_squat",
+    "goblet_squat"
+   ]
   },
   "db_bench_press": {
    "name": "DB bench press",
-   "db_id": "Dumbbell_Bench_Press",
+   "muscle": "chest",
    "regions": [
     "chest",
     "triceps"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "chest",
-   "images": [
-    "img/Dumbbell_Bench_Press/0.jpg",
-    "img/Dumbbell_Bench_Press/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "db_bench_press",
+    "machine_chest_press",
+    "pushup"
+   ]
   },
   "one_arm_db_row": {
    "name": "One-arm DB row",
-   "db_id": "One-Arm_Dumbbell_Row",
+   "muscle": "upper back/lats",
    "regions": [
     "lats",
     "biceps"
    ],
    "rest_s": 120,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "upper back/lats",
-   "images": [
-    "img/One-Arm_Dumbbell_Row/0.jpg",
-    "img/One-Arm_Dumbbell_Row/1.jpg"
-   ],
-   "unilateral": true
+   "variants": [
+    "one_arm_db_row",
+    "two_db_row",
+    "seated_cable_row"
+   ]
   },
   "romanian_deadlift": {
    "name": "Romanian deadlift",
-   "db_id": "Romanian_Deadlift",
+   "muscle": "hamstrings/glutes",
    "regions": [
     "hamstrings",
     "glutes"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "barbell",
-   "muscle": "hamstrings/glutes",
-   "images": [
-    "img/Romanian_Deadlift/0.jpg",
-    "img/Romanian_Deadlift/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "romanian_deadlift",
+    "db_rdl"
+   ]
   },
   "db_lateral_raise": {
    "name": "DB lateral raise",
-   "db_id": "Side_Lateral_Raise",
+   "muscle": "side delts",
    "regions": [
     "side_delts"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "side delts",
-   "images": [
-    "img/Side_Lateral_Raise/0.jpg",
-    "img/Side_Lateral_Raise/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "db_lateral_raise",
+    "cable_lateral_raise"
+   ]
   },
   "incline_db_curl": {
    "name": "Incline DB curl",
-   "db_id": "Incline_Dumbbell_Curl",
+   "muscle": "biceps",
    "regions": [
     "biceps"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "biceps",
-   "images": [
-    "img/Incline_Dumbbell_Curl/0.jpg",
-    "img/Incline_Dumbbell_Curl/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "incline_db_curl",
+    "dumbbell_curl",
+    "cable_curl"
+   ]
   },
   "overhead_db_triceps_extension": {
    "name": "Overhead DB triceps extension",
-   "db_id": "Standing_Dumbbell_Triceps_Extension",
+   "muscle": "triceps",
    "regions": [
     "triceps"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "triceps",
-   "images": [
-    "img/Standing_Dumbbell_Triceps_Extension/0.jpg",
-    "img/Standing_Dumbbell_Triceps_Extension/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "overhead_db_triceps_extension",
+    "rope_pushdown",
+    "skull_crusher"
+   ]
   },
   "calf_raise_db": {
    "name": "Standing calf raise (DB single-leg on step)",
-   "db_id": "Standing_Dumbbell_Calf_Raise",
+   "muscle": "calves",
    "regions": [
     "calves"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "calves",
-   "images": [
-    "img/Standing_Dumbbell_Calf_Raise/0.jpg",
-    "img/Standing_Dumbbell_Calf_Raise/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "calf_raise_db",
+    "calf_raise_machine"
+   ]
   },
   "leg_press": {
    "name": "Leg press or hack squat",
-   "db_id": "Leg_Press",
+   "muscle": "quads",
    "regions": [
     "quads",
     "glutes"
    ],
    "rest_s": 150,
-   "step_lb": 10,
-   "equipment": "machine",
-   "muscle": "quads",
-   "images": [
-    "img/Leg_Press/0.jpg",
-    "img/Leg_Press/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "leg_press",
+    "hack_squat",
+    "goblet_squat",
+    "box_squat"
+   ]
   },
   "incline_press": {
    "name": "Incline DB or machine press",
-   "db_id": "Incline_Dumbbell_Press",
+   "muscle": "chest",
    "regions": [
     "chest",
     "triceps",
     "side_delts"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "chest",
-   "images": [
-    "img/Incline_Dumbbell_Press/0.jpg",
-    "img/Incline_Dumbbell_Press/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "incline_press",
+    "machine_incline_press",
+    "db_bench_press"
+   ]
   },
   "lat_pulldown": {
    "name": "Lat pulldown",
-   "db_id": "Wide-Grip_Lat_Pulldown",
+   "muscle": "upper back/lats",
    "regions": [
     "lats",
     "biceps"
    ],
    "rest_s": 120,
-   "step_lb": 5,
-   "equipment": "cable",
-   "muscle": "upper back/lats",
-   "images": [
-    "img/Wide-Grip_Lat_Pulldown/0.jpg",
-    "img/Wide-Grip_Lat_Pulldown/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "lat_pulldown",
+    "pull_up",
+    "assisted_pull_up",
+    "one_arm_db_row"
+   ]
   },
   "seated_cable_row": {
    "name": "Seated cable row",
-   "db_id": "Seated_Cable_Rows",
+   "muscle": "upper back/lats",
    "regions": [
     "lats",
     "biceps"
    ],
    "rest_s": 120,
-   "step_lb": 5,
-   "equipment": "cable",
-   "muscle": "upper back/lats",
-   "images": [
-    "img/Seated_Cable_Rows/0.jpg",
-    "img/Seated_Cable_Rows/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "seated_cable_row",
+    "two_db_row",
+    "one_arm_db_row"
+   ]
   },
   "lying_leg_curl": {
    "name": "Lying leg curl",
-   "db_id": "Lying_Leg_Curls",
+   "muscle": "hamstrings",
    "regions": [
     "hamstrings"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "machine",
-   "muscle": "hamstrings",
-   "images": [
-    "img/Lying_Leg_Curls/0.jpg",
-    "img/Lying_Leg_Curls/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "lying_leg_curl",
+    "seated_leg_curl",
+    "ball_leg_curl",
+    "romanian_deadlift"
+   ]
   },
   "cable_lateral_raise": {
    "name": "Cable lateral raise",
-   "db_id": "Cable_Seated_Lateral_Raise",
+   "muscle": "side delts",
    "regions": [
     "side_delts"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "cable",
-   "muscle": "side delts",
-   "images": [
-    "img/Cable_Seated_Lateral_Raise/0.jpg",
-    "img/Cable_Seated_Lateral_Raise/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "cable_lateral_raise",
+    "db_lateral_raise"
+   ]
   },
   "rear_delt_machine": {
    "name": "Reverse pec-deck or face pull",
-   "db_id": "Reverse_Machine_Flyes",
+   "muscle": "rear delts",
    "regions": [
     "rear_delts"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "machine",
-   "muscle": "rear delts",
-   "images": [
-    "img/Reverse_Machine_Flyes/0.jpg",
-    "img/Reverse_Machine_Flyes/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "rear_delt_machine",
+    "face_pull",
+    "rear_delt_db_raise"
+   ]
   },
   "cable_curl": {
    "name": "Cable curl",
-   "db_id": "Standing_Biceps_Cable_Curl",
+   "muscle": "biceps",
    "regions": [
     "biceps"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "cable",
-   "muscle": "biceps",
-   "images": [
-    "img/Standing_Biceps_Cable_Curl/0.jpg",
-    "img/Standing_Biceps_Cable_Curl/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "cable_curl",
+    "dumbbell_curl",
+    "incline_db_curl",
+    "hammer_curl"
+   ]
   },
   "rope_pushdown": {
    "name": "Rope pushdown",
-   "db_id": "Triceps_Pushdown_-_Rope_Attachment",
+   "muscle": "triceps",
    "regions": [
     "triceps"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "cable",
-   "muscle": "triceps",
-   "images": [
-    "img/Triceps_Pushdown_-_Rope_Attachment/0.jpg",
-    "img/Triceps_Pushdown_-_Rope_Attachment/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "rope_pushdown",
+    "overhead_db_triceps_extension",
+    "skull_crusher",
+    "machine_triceps_extension"
+   ]
   },
   "calf_raise_machine": {
    "name": "Standing calf raise (machine)",
-   "db_id": "Standing_Calf_Raises",
+   "muscle": "calves",
    "regions": [
     "calves"
    ],
    "rest_s": 90,
-   "step_lb": 10,
-   "equipment": "machine",
-   "muscle": "calves",
-   "images": [
-    "img/Standing_Calf_Raises/0.jpg",
-    "img/Standing_Calf_Raises/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "calf_raise_machine",
+    "calf_raise_db",
+    "leg_press_calf"
+   ]
   },
   "cable_crunch": {
    "name": "Cable crunch",
-   "db_id": "Cable_Crunch",
+   "muscle": "abs",
    "regions": [
     "abs"
    ],
    "rest_s": 90,
-   "step_lb": 5,
-   "equipment": "cable",
-   "muscle": "abs",
-   "images": [
-    "img/Cable_Crunch/0.jpg",
-    "img/Cable_Crunch/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "cable_crunch",
+    "crunch",
+    "hanging_leg_raise"
+   ]
   },
   "db_overhead_press": {
    "name": "Seated DB overhead press",
-   "db_id": "Dumbbell_Shoulder_Press",
+   "muscle": "delts/triceps",
    "regions": [
     "side_delts",
     "triceps"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "delts/triceps",
-   "images": [
-    "img/Dumbbell_Shoulder_Press/0.jpg",
-    "img/Dumbbell_Shoulder_Press/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "db_overhead_press",
+    "machine_shoulder_press",
+    "barbell_ohp"
+   ]
   },
   "pull_up": {
    "name": "Pull-up or chin-up (band-assisted if needed)",
-   "db_id": "Pullups",
+   "muscle": "upper back/lats",
    "regions": [
     "lats",
     "biceps"
    ],
    "rest_s": 150,
-   "step_lb": 5,
-   "equipment": "body only",
-   "muscle": "upper back/lats",
-   "images": [
-    "img/Pullups/0.jpg",
-    "img/Pullups/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "pull_up",
+    "chin_up",
+    "assisted_pull_up",
+    "lat_pulldown"
+   ]
   },
   "split_squat": {
    "name": "Split squat, controlled tempo",
-   "db_id": "Split_Squat_with_Dumbbells",
+   "muscle": "quads/glutes",
    "regions": [
     "quads",
     "glutes"
    ],
    "rest_s": 120,
-   "step_lb": 5,
-   "equipment": "dumbbell",
-   "muscle": "quads/glutes",
-   "images": [
-    "img/Split_Squat_with_Dumbbells/0.jpg",
-    "img/Split_Squat_with_Dumbbells/1.jpg"
-   ],
-   "unilateral": true
+   "variants": [
+    "split_squat",
+    "goblet_squat",
+    "leg_press"
+   ]
   },
   "hip_thrust": {
    "name": "DB hip thrust or glute bridge",
-   "db_id": "Barbell_Glute_Bridge",
+   "muscle": "glutes",
    "regions": [
     "glutes",
     "hamstrings"
    ],
    "rest_s": 120,
-   "step_lb": 5,
-   "equipment": "barbell",
-   "muscle": "glutes",
-   "images": [
-    "img/Barbell_Glute_Bridge/0.jpg",
-    "img/Barbell_Glute_Bridge/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "hip_thrust",
+    "barbell_hip_thrust",
+    "glute_bridge"
+   ]
   },
   "incline_pushup_fly": {
    "name": "Incline push-up or DB fly",
-   "db_id": "Incline_Dumbbell_Flyes",
+   "muscle": "chest",
    "regions": [
     "chest"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "chest",
-   "images": [
-    "img/Incline_Dumbbell_Flyes/0.jpg",
-    "img/Incline_Dumbbell_Flyes/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "incline_pushup_fly",
+    "incline_pushup",
+    "cable_fly",
+    "machine_fly"
+   ]
   },
   "rear_delt_db_raise": {
    "name": "Rear-delt DB raise",
-   "db_id": "Seated_Bent-Over_Rear_Delt_Raise",
+   "muscle": "rear delts",
    "regions": [
     "rear_delts"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "rear delts",
-   "images": [
-    "img/Seated_Bent-Over_Rear_Delt_Raise/0.jpg",
-    "img/Seated_Bent-Over_Rear_Delt_Raise/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "rear_delt_db_raise",
+    "rear_delt_machine",
+    "face_pull"
+   ]
   },
   "hammer_curl": {
    "name": "Hammer curl",
-   "db_id": "Hammer_Curls",
+   "muscle": "biceps",
    "regions": [
     "biceps"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "dumbbell",
-   "muscle": "biceps",
-   "images": [
-    "img/Hammer_Curls/0.jpg",
-    "img/Hammer_Curls/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "hammer_curl",
+    "cable_hammer_curl",
+    "dumbbell_curl"
+   ]
   },
   "skull_crusher": {
    "name": "Skull crusher or DB overhead extension",
-   "db_id": "EZ-Bar_Skullcrusher",
+   "muscle": "triceps",
    "regions": [
     "triceps"
    ],
    "rest_s": 90,
-   "step_lb": 2.5,
-   "equipment": "e-z curl bar",
-   "muscle": "triceps",
-   "images": [
-    "img/EZ-Bar_Skullcrusher/0.jpg",
-    "img/EZ-Bar_Skullcrusher/1.jpg"
-   ],
-   "unilateral": false
+   "variants": [
+    "skull_crusher",
+    "overhead_db_triceps_extension",
+    "rope_pushdown"
+   ]
   },
   "weighted_crunch_leg_raise": {
    "name": "Weighted crunch or hanging leg raise",
-   "db_id": "Hanging_Leg_Raise",
+   "muscle": "abs",
    "regions": [
     "abs"
    ],
    "rest_s": 90,
+   "variants": [
+    "hanging_leg_raise",
+    "weighted_crunch",
+    "cable_crunch"
+   ]
+  }
+ },
+ "variants": {
+  "assisted_pull_up": {
+   "name": "Band-assisted pull-up",
+   "db_id": "Band_Assisted_Pull-Up",
+   "label": "Band",
+   "per_side": false,
+   "each": false,
    "step_lb": 5,
-   "equipment": "body only",
-   "muscle": "abs",
+   "start_lb": 0,
+   "images": [
+    "img/Band_Assisted_Pull-Up/0.jpg",
+    "img/Band_Assisted_Pull-Up/1.jpg"
+   ]
+  },
+  "ball_leg_curl": {
+   "name": "Stability-ball leg curl",
+   "db_id": "Ball_Leg_Curl",
+   "label": "Stability ball",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Ball_Leg_Curl/0.jpg",
+    "img/Ball_Leg_Curl/1.jpg"
+   ]
+  },
+  "barbell_hip_thrust": {
+   "name": "Barbell hip thrust",
+   "db_id": "Barbell_Hip_Thrust",
+   "label": "Barbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 45,
+   "images": [
+    "img/Barbell_Hip_Thrust/0.jpg",
+    "img/Barbell_Hip_Thrust/1.jpg"
+   ]
+  },
+  "barbell_ohp": {
+   "name": "Barbell overhead press",
+   "db_id": "Barbell_Shoulder_Press",
+   "label": "Barbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 45,
+   "images": [
+    "img/Barbell_Shoulder_Press/0.jpg",
+    "img/Barbell_Shoulder_Press/1.jpg"
+   ]
+  },
+  "box_squat": {
+   "name": "Box squat",
+   "db_id": "Box_Squat",
+   "label": "Barbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 45,
+   "images": [
+    "img/Box_Squat/0.jpg",
+    "img/Box_Squat/1.jpg"
+   ]
+  },
+  "cable_crunch": {
+   "name": "Cable crunch",
+   "db_id": "Cable_Crunch",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Cable_Crunch/0.jpg",
+    "img/Cable_Crunch/1.jpg"
+   ]
+  },
+  "cable_curl": {
+   "name": "Cable curl",
+   "db_id": "Standing_Biceps_Cable_Curl",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Standing_Biceps_Cable_Curl/0.jpg",
+    "img/Standing_Biceps_Cable_Curl/1.jpg"
+   ]
+  },
+  "cable_fly": {
+   "name": "Cable fly",
+   "db_id": "Flat_Bench_Cable_Flyes",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 2.5,
+   "start_lb": 10,
+   "images": [
+    "img/Flat_Bench_Cable_Flyes/0.jpg",
+    "img/Flat_Bench_Cable_Flyes/1.jpg"
+   ]
+  },
+  "cable_hammer_curl": {
+   "name": "Rope hammer curl",
+   "db_id": "Cable_Hammer_Curls_-_Rope_Attachment",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Cable_Hammer_Curls_-_Rope_Attachment/0.jpg",
+    "img/Cable_Hammer_Curls_-_Rope_Attachment/1.jpg"
+   ]
+  },
+  "cable_lateral_raise": {
+   "name": "Cable lateral raise",
+   "db_id": "Cable_Seated_Lateral_Raise",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 2.5,
+   "start_lb": 5,
+   "images": [
+    "img/Cable_Seated_Lateral_Raise/0.jpg",
+    "img/Cable_Seated_Lateral_Raise/1.jpg"
+   ]
+  },
+  "calf_raise_db": {
+   "name": "Single-leg calf raise",
+   "db_id": "Standing_Dumbbell_Calf_Raise",
+   "label": "Dumbbell",
+   "per_side": true,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 15,
+   "images": [
+    "img/Standing_Dumbbell_Calf_Raise/0.jpg",
+    "img/Standing_Dumbbell_Calf_Raise/1.jpg"
+   ]
+  },
+  "calf_raise_machine": {
+   "name": "Standing calf raise",
+   "db_id": "Standing_Calf_Raises",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 50,
+   "images": [
+    "img/Standing_Calf_Raises/0.jpg",
+    "img/Standing_Calf_Raises/1.jpg"
+   ]
+  },
+  "chin_up": {
+   "name": "Chin-up",
+   "db_id": "Chin-Up",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Chin-Up/0.jpg",
+    "img/Chin-Up/1.jpg"
+   ]
+  },
+  "crunch": {
+   "name": "Crunch",
+   "db_id": "Crunches",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Crunches/0.jpg",
+    "img/Crunches/1.jpg"
+   ]
+  },
+  "db_bench_press": {
+   "name": "DB bench press",
+   "db_id": "Dumbbell_Bench_Press",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Dumbbell_Bench_Press/0.jpg",
+    "img/Dumbbell_Bench_Press/1.jpg"
+   ]
+  },
+  "db_lateral_raise": {
+   "name": "DB lateral raise",
+   "db_id": "Side_Lateral_Raise",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 5,
+   "images": [
+    "img/Side_Lateral_Raise/0.jpg",
+    "img/Side_Lateral_Raise/1.jpg"
+   ]
+  },
+  "db_overhead_press": {
+   "name": "Seated DB overhead press",
+   "db_id": "Dumbbell_Shoulder_Press",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 15,
+   "images": [
+    "img/Dumbbell_Shoulder_Press/0.jpg",
+    "img/Dumbbell_Shoulder_Press/1.jpg"
+   ]
+  },
+  "db_rdl": {
+   "name": "DB Romanian deadlift",
+   "db_id": "Stiff-Legged_Dumbbell_Deadlift",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Stiff-Legged_Dumbbell_Deadlift/0.jpg",
+    "img/Stiff-Legged_Dumbbell_Deadlift/1.jpg"
+   ]
+  },
+  "dumbbell_curl": {
+   "name": "DB curl",
+   "db_id": "Dumbbell_Bicep_Curl",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 10,
+   "images": [
+    "img/Dumbbell_Bicep_Curl/0.jpg",
+    "img/Dumbbell_Bicep_Curl/1.jpg"
+   ]
+  },
+  "face_pull": {
+   "name": "Face pull",
+   "db_id": "Face_Pull",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Face_Pull/0.jpg",
+    "img/Face_Pull/1.jpg"
+   ]
+  },
+  "glute_bridge": {
+   "name": "Single-leg glute bridge",
+   "db_id": "Single_Leg_Glute_Bridge",
+   "label": "Bodyweight",
+   "per_side": true,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Single_Leg_Glute_Bridge/0.jpg",
+    "img/Single_Leg_Glute_Bridge/1.jpg"
+   ]
+  },
+  "goblet_squat": {
+   "name": "Goblet squat",
+   "db_id": "Goblet_Squat",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Goblet_Squat/0.jpg",
+    "img/Goblet_Squat/1.jpg"
+   ]
+  },
+  "hack_squat": {
+   "name": "Hack squat",
+   "db_id": "Hack_Squat",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 45,
+   "images": [
+    "img/Hack_Squat/0.jpg",
+    "img/Hack_Squat/1.jpg"
+   ]
+  },
+  "hammer_curl": {
+   "name": "Hammer curl",
+   "db_id": "Hammer_Curls",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 10,
+   "images": [
+    "img/Hammer_Curls/0.jpg",
+    "img/Hammer_Curls/1.jpg"
+   ]
+  },
+  "hanging_leg_raise": {
+   "name": "Hanging leg raise",
+   "db_id": "Hanging_Leg_Raise",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
    "images": [
     "img/Hanging_Leg_Raise/0.jpg",
     "img/Hanging_Leg_Raise/1.jpg"
-   ],
-   "unilateral": false
+   ]
+  },
+  "hip_thrust": {
+   "name": "DB hip thrust",
+   "db_id": "Barbell_Hip_Thrust",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Barbell_Hip_Thrust/0.jpg",
+    "img/Barbell_Hip_Thrust/1.jpg"
+   ]
+  },
+  "incline_db_curl": {
+   "name": "Incline DB curl",
+   "db_id": "Incline_Dumbbell_Curl",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 10,
+   "images": [
+    "img/Incline_Dumbbell_Curl/0.jpg",
+    "img/Incline_Dumbbell_Curl/1.jpg"
+   ]
+  },
+  "incline_press": {
+   "name": "Incline DB press",
+   "db_id": "Incline_Dumbbell_Press",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Incline_Dumbbell_Press/0.jpg",
+    "img/Incline_Dumbbell_Press/1.jpg"
+   ]
+  },
+  "incline_pushup": {
+   "name": "Incline push-up",
+   "db_id": "Incline_Push-Up",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Incline_Push-Up/0.jpg",
+    "img/Incline_Push-Up/1.jpg"
+   ]
+  },
+  "incline_pushup_fly": {
+   "name": "Incline DB fly",
+   "db_id": "Incline_Dumbbell_Flyes",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 10,
+   "images": [
+    "img/Incline_Dumbbell_Flyes/0.jpg",
+    "img/Incline_Dumbbell_Flyes/1.jpg"
+   ]
+  },
+  "lat_pulldown": {
+   "name": "Lat pulldown",
+   "db_id": "Wide-Grip_Lat_Pulldown",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 50,
+   "images": [
+    "img/Wide-Grip_Lat_Pulldown/0.jpg",
+    "img/Wide-Grip_Lat_Pulldown/1.jpg"
+   ]
+  },
+  "leg_press": {
+   "name": "Leg press",
+   "db_id": "Leg_Press",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 90,
+   "images": [
+    "img/Leg_Press/0.jpg",
+    "img/Leg_Press/1.jpg"
+   ]
+  },
+  "leg_press_calf": {
+   "name": "Calf press (leg press)",
+   "db_id": "Calf_Press_On_The_Leg_Press_Machine",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 60,
+   "images": [
+    "img/Calf_Press_On_The_Leg_Press_Machine/0.jpg",
+    "img/Calf_Press_On_The_Leg_Press_Machine/1.jpg"
+   ]
+  },
+  "lying_leg_curl": {
+   "name": "Lying leg curl",
+   "db_id": "Lying_Leg_Curls",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Lying_Leg_Curls/0.jpg",
+    "img/Lying_Leg_Curls/1.jpg"
+   ]
+  },
+  "machine_chest_press": {
+   "name": "Machine chest press",
+   "db_id": "Machine_Bench_Press",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 40,
+   "images": [
+    "img/Machine_Bench_Press/0.jpg",
+    "img/Machine_Bench_Press/1.jpg"
+   ]
+  },
+  "machine_fly": {
+   "name": "Pec-deck fly",
+   "db_id": "Butterfly",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Butterfly/0.jpg",
+    "img/Butterfly/1.jpg"
+   ]
+  },
+  "machine_incline_press": {
+   "name": "Incline machine press",
+   "db_id": "Leverage_Incline_Chest_Press",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 10,
+   "start_lb": 40,
+   "images": [
+    "img/Leverage_Incline_Chest_Press/0.jpg",
+    "img/Leverage_Incline_Chest_Press/1.jpg"
+   ]
+  },
+  "machine_shoulder_press": {
+   "name": "Machine shoulder press",
+   "db_id": "Leverage_Shoulder_Press",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Leverage_Shoulder_Press/0.jpg",
+    "img/Leverage_Shoulder_Press/1.jpg"
+   ]
+  },
+  "machine_triceps_extension": {
+   "name": "Machine triceps extension",
+   "db_id": "Machine_Triceps_Extension",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Machine_Triceps_Extension/0.jpg",
+    "img/Machine_Triceps_Extension/1.jpg"
+   ]
+  },
+  "one_arm_db_row": {
+   "name": "One-arm DB row",
+   "db_id": "One-Arm_Dumbbell_Row",
+   "label": "Dumbbell",
+   "per_side": true,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 25,
+   "images": [
+    "img/One-Arm_Dumbbell_Row/0.jpg",
+    "img/One-Arm_Dumbbell_Row/1.jpg"
+   ]
+  },
+  "overhead_db_triceps_extension": {
+   "name": "Overhead DB triceps extension",
+   "db_id": "Standing_Dumbbell_Triceps_Extension",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 2.5,
+   "start_lb": 15,
+   "images": [
+    "img/Standing_Dumbbell_Triceps_Extension/0.jpg",
+    "img/Standing_Dumbbell_Triceps_Extension/1.jpg"
+   ]
+  },
+  "pull_up": {
+   "name": "Pull-up",
+   "db_id": "Pullups",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Pullups/0.jpg",
+    "img/Pullups/1.jpg"
+   ]
+  },
+  "pushup": {
+   "name": "Push-up",
+   "db_id": "Pushups",
+   "label": "Bodyweight",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Pushups/0.jpg",
+    "img/Pushups/1.jpg"
+   ]
+  },
+  "rear_delt_db_raise": {
+   "name": "Rear-delt DB raise",
+   "db_id": "Seated_Bent-Over_Rear_Delt_Raise",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 2.5,
+   "start_lb": 5,
+   "images": [
+    "img/Seated_Bent-Over_Rear_Delt_Raise/0.jpg",
+    "img/Seated_Bent-Over_Rear_Delt_Raise/1.jpg"
+   ]
+  },
+  "rear_delt_machine": {
+   "name": "Reverse pec-deck",
+   "db_id": "Reverse_Machine_Flyes",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Reverse_Machine_Flyes/0.jpg",
+    "img/Reverse_Machine_Flyes/1.jpg"
+   ]
+  },
+  "romanian_deadlift": {
+   "name": "Romanian deadlift",
+   "db_id": "Romanian_Deadlift",
+   "label": "Barbell",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 45,
+   "images": [
+    "img/Romanian_Deadlift/0.jpg",
+    "img/Romanian_Deadlift/1.jpg"
+   ]
+  },
+  "rope_pushdown": {
+   "name": "Rope pushdown",
+   "db_id": "Triceps_Pushdown_-_Rope_Attachment",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Triceps_Pushdown_-_Rope_Attachment/0.jpg",
+    "img/Triceps_Pushdown_-_Rope_Attachment/1.jpg"
+   ]
+  },
+  "seated_cable_row": {
+   "name": "Seated cable row",
+   "db_id": "Seated_Cable_Rows",
+   "label": "Cable",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 50,
+   "images": [
+    "img/Seated_Cable_Rows/0.jpg",
+    "img/Seated_Cable_Rows/1.jpg"
+   ]
+  },
+  "seated_leg_curl": {
+   "name": "Seated leg curl",
+   "db_id": "Seated_Leg_Curl",
+   "label": "Machine",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 30,
+   "images": [
+    "img/Seated_Leg_Curl/0.jpg",
+    "img/Seated_Leg_Curl/1.jpg"
+   ]
+  },
+  "skull_crusher": {
+   "name": "Skull crusher",
+   "db_id": "EZ-Bar_Skullcrusher",
+   "label": "E-Z bar",
+   "per_side": false,
+   "each": false,
+   "step_lb": 2.5,
+   "start_lb": 20,
+   "images": [
+    "img/EZ-Bar_Skullcrusher/0.jpg",
+    "img/EZ-Bar_Skullcrusher/1.jpg"
+   ]
+  },
+  "split_squat": {
+   "name": "DB split squat",
+   "db_id": "Split_Squat_with_Dumbbells",
+   "label": "Dumbbell",
+   "per_side": true,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 15,
+   "images": [
+    "img/Split_Squat_with_Dumbbells/0.jpg",
+    "img/Split_Squat_with_Dumbbells/1.jpg"
+   ]
+  },
+  "two_db_row": {
+   "name": "Two-DB bent-over row",
+   "db_id": "Bent_Over_Two-Dumbbell_Row",
+   "label": "Dumbbell",
+   "per_side": false,
+   "each": true,
+   "step_lb": 5,
+   "start_lb": 20,
+   "images": [
+    "img/Bent_Over_Two-Dumbbell_Row/0.jpg",
+    "img/Bent_Over_Two-Dumbbell_Row/1.jpg"
+   ]
+  },
+  "weighted_crunch": {
+   "name": "Weighted crunch",
+   "db_id": "Weighted_Crunches",
+   "label": "Weighted",
+   "per_side": false,
+   "each": false,
+   "step_lb": 5,
+   "start_lb": 0,
+   "images": [
+    "img/Weighted_Crunches/0.jpg",
+    "img/Weighted_Crunches/1.jpg"
+   ]
   }
  },
  "sessions": [

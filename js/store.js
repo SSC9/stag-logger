@@ -44,3 +44,12 @@ export async function isPersisted() {
   }
   return null;
 }
+
+// Erase everything stored on this phone (used by Data & settings after a confirmation).
+export function wipe() {
+  return new Promise(resolve => {
+    if (db) { db.close(); db = null; }
+    const req = indexedDB.deleteDatabase(DB_NAME);
+    req.onsuccess = req.onerror = req.onblocked = () => resolve();
+  });
+}
