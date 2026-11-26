@@ -68,3 +68,12 @@ What was slow, what took too many taps, what you wanted on the card that was mis
 - [ ] Export: the share sheet shows the CSVs plus the events JSON, and no stray "STAG export" text file.
 - [ ] Set note edited later does not create a corrected row (check the CSV: `is_current` true, no extra row).
 - [ ] Rest alerts (only after the relay is deployed): Data & settings > Rest alerts, Enable, Test in 10 s with the phone locked; note whether the Apple Watch taps your wrist and what sound plays.
+
+## V0.4 additions
+- [ ] Colors match the logo in light and dark mode; Log is gold, Start is forest green.
+- [ ] Rest screen shows the ring counting down; it turns rust past the target.
+- [ ] Open the plan overview mid-session and scroll: only the sheet scrolls, nothing freezes. Each lift shows its mini body map.
+- [ ] Split squat says "Left leg (front)": log the front leg as left.
+- [ ] Where / With chips on Today: pick or type, start a session, check the summary shows them.
+- [ ] Body check-in: enter a few measurements, mark photos taken, save; the "due" tag disappears; export includes the check-in CSV.
+- [ ] Top of the screen is crisp (no blur under the status bar). If not, send a screenshot.

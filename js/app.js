@@ -1,7 +1,7 @@
 import { openDb, loadAll, append, requestPersistence, isPersisted, wipe } from './store.js';
 import * as L from './logic.js';
 import { toCsv, parseCsv } from './csv.js';
-import { bodyMapSvg, pickerSvg, heatSvg, stagSvg } from './avatar.js';
+import { bodyMapSvg, pickerSvg, heatSvg } from './avatar.js';
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -72,6 +72,17 @@ const sheetHead = t => `<div class="shead"><h2>${t}</h2><button class="x" data-a
 const isRunning = (sess, st) => !!(sess.pendingStart && sess.pendingStart.exercise_idx === st.idx && sess.pendingStart.side === st.side);
 const selKey = s => `${s.region}:${s.side}`;
 const selLabel = s => L.regionLabel(s.region, s.side === 'center' ? '' : s.side);
+// "left" and "right" always mean the working limb; some lifts name which one that is
+const LIMB = { split_squat: ['leg', 'front'], calf_raise_db: ['leg', 'standing'], glute_bridge: ['leg', 'working'], one_arm_db_row: ['arm', 'rowing'] };
+const ARMISH = ['biceps', 'triceps', 'side_delts', 'rear_delts', 'lats', 'chest', 'forearms'];
+function sideName(st, side) {
+  const [limb, q] = LIMB[st.vid] || [st.slot.regions.some(r => ARMISH.includes(r)) ? 'arm' : 'leg', ''];
+  return `${side === 'left' ? 'Left' : 'Right'} ${limb}${q ? ` (${q})` : ''}`;
+}
+const RC = 2 * Math.PI * 54;
+const ring = (t, sub, arc) => `<div class="ringwrap"><svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="trk" cx="60" cy="60" r="54"/>${arc ? `<circle class="arc" id="rarc" cx="60" cy="60" r="54" stroke-dasharray="${RC.toFixed(1)}" stroke-dashoffset="0"/>` : ''}</svg><div class="ringtxt"><div class="rtime" id="rtime">${t}</div><div class="rsub" id="rsub">${sub}</div></div></div>`;
+const defaultWhere = () => ui.where ?? (L.recentLabels(S, 'where')[0] || '');
+const whereWithRow = () => `<div class="ww"><button class="wwb" data-a="wwopen">📍 ${defaultWhere() ? esc(defaultWhere()) : 'Where?'}</button><button class="wwb" data-a="wwopen">👥 ${ui.with ? esc(ui.with) : 'With? (optional)'}</button></div>`;
 
 // ---------- views ----------
 function render() {
@@ -83,6 +94,9 @@ function render() {
   else if (ui.view === 'historyDetail' && S.sessions[ui.historyId]) html = viewHistoryDetail(S.sessions[ui.historyId]);
   else { ui.view = 'today'; html = viewToday(sess); }
   $('#app').innerHTML = html + viewSheet();
+  const open = !!(ui.sheet || ui.edit), b = document.body;   // lock the page behind a sheet (iOS scroll chaining)
+  if (open && !b.classList.contains('locked')) { ui.scrollY = window.scrollY; b.style.top = `-${ui.scrollY}px`; b.classList.add('locked'); }
+  else if (!open && b.classList.contains('locked')) { b.classList.remove('locked'); b.style.top = ''; window.scrollTo(0, ui.scrollY || 0); }
   renderToast(); wake(); tick();
 }
 
@@ -99,7 +113,7 @@ function viewToday(active) {
     const vid = S.settings['variant:' + i.key] || L.defaultVariant(PLAN, i.key);
     return `<div class="ex"><span>${esc(vname(vid))}</span><span>${i.sets} × ${L.targetText(i.rep_low + '-' + i.rep_high)}${i.adjusted ? ' · −1 set' : ''}</span></div>`; }).join('');
   return `
-  <div class="head"><div class="brand"><img class="logo" src="icons/icon-192.png" alt=""><div><b>STAG</b><small>Today</small></div></div>${st ? `<span class="chip">${st}-week streak</span>` : ''}</div>
+  <div class="head"><div class="brand"><img class="logo" src="icons/icon-192.png" alt=""><div><b class="title">STAG</b><small>Strength Training And Growth${st ? ` · 🔥 ${st}-week streak` : ''}</small></div></div></div>
   ${due && Date.now() - Date.parse(due.ended.t) >= L.RPE_DELAY_MS ? `<div class="banner"><span>How hard was your ${esc(due.day)} session?</span><button data-a="rpeopen" data-v="${due.session_id}">Rate</button></div>` : ''}
   <div class="card">
     <h2>How recovered do I feel?</h2>
@@ -110,6 +124,7 @@ function viewToday(active) {
     <div class="row"><div class="weekpick"><button data-a="wk-" aria-label="Previous week" ${week <= 1 ? 'disabled' : ''}>‹</button><b>Week ${week}</b><button data-a="wk+" aria-label="Next week" ${week >= 12 ? 'disabled' : ''}>›</button></div>
       ${done ? '<span class="pill">Done</span>' : ps.deload ? '<span class="pill">Deload</span>' : ''}</div>
     <div class="seg n3" id="daypick">${L.DAYS.map(d => `<button data-a="day" data-v="${d}" class="${d === day ? 'on' : ''}">${d}</button>`).join('')}</div>
+    ${whereWithRow()}
     ${names}
     <details><summary>Why this plan?</summary><p>${esc(adj.why)}</p>
       <p>${adj.planned_set_count} sets${adj.planned_set_count !== adj.base_set_count ? ` (plan has ${adj.base_set_count})` : ''}. Readiness 1–2: one fewer set per exercise and 3 in reserve. 3–5: plan as written. Sleep and soreness are context only.</p></details>
@@ -119,6 +134,7 @@ function viewToday(active) {
     <button class="lb" data-a="history">History</button>
     <button class="lb" data-a="activityopen">Other activity</button>
     <button class="lb" data-a="bodyopen">Soreness or pain</button>
+    <button class="lb" data-a="checkinopen">Body check-in${L.checkinDue(S) ? ' · due' : ''}</button>
     <button class="lb" data-a="settings">Data &amp; settings</button>
   </div>`;
 }
@@ -152,9 +168,9 @@ function viewCard(sess, st) {
     const sk = st.sk.find(x => x.set_order === o && !st.cur.some(c => c.set_order === o && c.side === x.side));
     return `<div class="done"><span>Set ${o}</span><div>${chips}${sk ? `<em>skipped · ${esc(L.reasonLabel(sk.reason))}</em>` : ''}</div></div>`;
   }).join('');
-  const label = st.perSide ? `${st.side === 'left' ? 'Left' : 'Right'} · set ${st.setOrder} of ${st.total}` : `Set ${st.setOrder} of ${st.total}`;
+  const label = st.perSide ? `${sideName(st, st.side)} · set ${st.setOrder} of ${st.total}` : `Set ${st.setOrder} of ${st.total}`;
   const unit = variant.each ? 'lb each' : 'lb';
-  const logLabel = st.perSide ? `Log ${st.side}` : `Log set ${st.setOrder} of ${st.total}`;
+  const logLabel = st.perSide ? `Log ${sideName(st, st.side).split(' (')[0].toLowerCase()}` : `Log set ${st.setOrder} of ${st.total}`;
   return `${topBar(sess, st)}
   <div class="card">
     <div class="row"><div><h1>${esc(variant.name)}</h1>
@@ -174,7 +190,7 @@ function viewCard(sess, st) {
     <div class="seg" id="rir">${[0, 1, 2, 3, 4].map(n => `<button data-a="rir" data-v="${n}" class="${ui.rir === n ? 'on' : ''}">${n === 4 ? '4+' : n}${n === 0 ? '<small>failure</small>' : ''}</button>`).join('')}</div>
     <p class="anchor" id="anchor">${ui.rir !== null ? esc(L.RIR_ANCHORS[ui.rir][1]) : ''}</p>
     <div class="logrow"><button class="ib big${ui.pendingNote ? ' has' : ''}" data-a="snote" aria-label="Journal this set">${ICON_NOTE}</button>
-      ${running ? `<button class="go" data-a="log">${logLabel}</button>` : `<button class="go start" data-a="startset">Start ${st.perSide ? st.side : `set ${st.setOrder}`}</button>`}</div>
+      ${running ? `<button class="go" data-a="log">${logLabel}</button>` : `<button class="go start" data-a="startset">Start ${st.perSide ? sideName(st, st.side).split(' (')[0].toLowerCase() : `set ${st.setOrder}`}</button>`}</div>
     <div class="foot"><span class="r">${running ? '' : '<button class="lb" data-a="log">Log without timing</button>'}</span><div class="acts"><button class="lb red" data-a="endearly">End early</button></div></div>
   </div>`;
 }
@@ -186,10 +202,8 @@ function viewRest(sess, st) {
   return `<div class="rest" id="rest">
     ${topBar(sess, st, esc(st.variant.name))}
     <div class="chips c"><span class="chip ok">Set ${st.setsDone}/${st.total} ✓</span><span class="chip">Lift ${st.idx + 1}/${sess.items.length}</span></div>
-    <div class="stagwrap">${stagSvg()}</div>
-    <div class="rtime" id="rtime">${L.fmtClock(target)}</div>
-    <div class="rsub" id="rsub">left of ${L.fmtClock(target)}</div>
-    <div class="next"><small>Up next</small><b>Set ${st.setOrder} of ${st.total}${st.perSide ? ' · left first' : ''}</b><span>${fmtW(sg.weight)} ${st.variant.each ? 'lb each' : 'lb'} × ${sg.reps}</span></div>
+    ${ring(L.fmtClock(target), `left of ${L.fmtClock(target)}`, true)}
+    <div class="next"><small>Up next</small><b>Set ${st.setOrder} of ${st.total}${st.perSide ? ` · ${sideName(st, 'left').toLowerCase()} first` : ''}</b><span>${fmtW(sg.weight)} ${st.variant.each ? 'lb each' : 'lb'} × ${sg.reps}</span></div>
     <button class="go" data-a="ready">Ready</button>
     <div class="foot c"><button class="lb" data-a="restplus">+30 s</button><button class="lb" data-a="rnote">Note</button><button class="lb" data-a="fixlast">Fix last set</button><button class="lb red" data-a="endearly">End early</button></div>
   </div>`;
@@ -201,9 +215,7 @@ function viewTransition(sess, st) {
   return `<div class="rest">
     ${topBar(sess, st, esc(st.variant.name))}
     <div class="chips c"><span class="chip ok">Lift ${st.idx + 1}/${sess.items.length} ${st.sk.length ? 'ended' : 'done'} ✓</span><span class="chip">${st.performedSets}/${st.total} sets</span></div>
-    <div class="stagwrap">${stagSvg()}</div>
-    <div class="rtime up" id="rtime">0:00</div>
-    <div class="rsub" id="rsub">${st.last ? 'Last lift done' : 'Transition'}</div>
+    ${ring('0:00', st.last ? 'Last lift done' : 'Transition', false)}
     ${nv ? `<div class="next withimg"><img src="${nv.images[0]}" alt=""><div><small>Up next</small><b>${esc(nv.name)}</b><span>${esc(nv.label)} · ${nextItem.sets} × ${L.targetText(nextItem.rep_low + '-' + nextItem.rep_high)}</span></div></div>` : ''}
     <button class="go" data-a="next">${st.last ? 'Finish session' : 'Start next lift'}</button>
     <div class="foot c"><button class="lb" data-a="rnote">Note</button><button class="lb" data-a="fixlast">Fix last set</button><button class="lb red" data-a="endearly">End early</button></div>
@@ -309,7 +321,7 @@ function planSheet() {
   const cur = Math.min(sess.currentIdx, sess.items.length - 1);
   const list = sess.items.map((it, i) => {
     const st = L.exState(S, PLAN, sess, i), isCur = i === cur, tag = st.exDone ? (st.sk.length ? 'ended' : 'done') : isCur ? 'now' : i < cur ? 'skipped' : 'next';
-    return `<div class="plrow ${isCur ? 'cur' : ''}"><span class="pst s-${tag}">${tag === 'done' ? '✓' : tag === 'now' ? '●' : tag === 'ended' ? '–' : '○'}</span><span class="pn">${esc(st.variant.name)}${'deferred_from' in it ? ' <em>(moved later)</em>' : ''}</span><span class="pc">${st.performedSets}/${st.total}</span></div>`;
+    return `<div class="plrow ${isCur ? 'cur' : ''}"><span class="pst s-${tag}">${tag === 'done' ? '✓' : tag === 'now' ? '●' : tag === 'ended' ? '–' : '○'}</span><span class="pmap">${bodyMapSvg(st.slot.regions)}</span><span class="pn">${esc(st.variant.name)}${'deferred_from' in it ? ' <em>(moved later)</em>' : ''}</span><span class="pc">${st.performedSets}/${st.total}</span></div>`;
   }).join('');
   const regs = Object.keys(planned).sort((a, b) => planned[b] - planned[a]).map(r => `<span class="mchip"><i style="opacity:${(0.2 + 0.8 * frac[r]).toFixed(2)}"></i>${esc(L.regionLabel(r, '').replace(/^./, c => c.toUpperCase()))} ${done[r] || 0}/${planned[r]}</span>`).join('');
   return `${sheetHead('Plan overview')}<div class="avwrap">${heatSvg(frac)}</div><div class="mchips">${regs}</div><p class="sub small">Shading is planned sets done per muscle. A lift can be primary for more than one muscle.</p>${list}`;
@@ -363,6 +375,16 @@ function viewSheet() {
     body = a ? `${sheetHead(esc(a.type))}<div class="kv"><span>Date</span><span>${esc(a.date)}</span></div><div class="kv"><span>Duration</span><span>${a.duration_min} min</span></div>
       <div class="kv"><span>Effort</span><span>${a.rpe ?? '—'}</span></div>${a.where ? `<div class="kv"><span>Where</span><span>${esc(a.where)}</span></div>` : ''}${a.with ? `<div class="kv"><span>With</span><span>${esc(a.with)}</span></div>` : ''}
       ${a.note ? `<p class="notebox">${esc(a.note)}</p>` : ''}<button class="go danger" data-a="avoid" data-v="${a.activity_id}">Remove activity</button>` : '';
+  } else if (sh.type === 'ww') {
+    body = `${sheetHead('Where and with')}<p class="sub small">Optional. Saved with this session.</p>${detailsFields(defaultWhere(), ui.with).replace('<details ', '<details open ')}<button class="go" data-a="wwsave">Done</button>`;
+  } else if (sh.type === 'checkin') {
+    const c = ui.ck;
+    body = `${sheetHead('Body check-in')}<p class="sub small">Monthly. Same time of day, same tape placement, ideally measured by the same person. Weight is filled from your scale later.</p>
+      <div class="seg n3" style="grid-template-columns:1fr 1fr"><button data-a="cunit" data-v="in" class="${c.unit === 'in' ? 'on' : ''}">inches</button><button data-a="cunit" data-v="cm" class="${c.unit === 'cm' ? 'on' : ''}">cm</button></div>
+      <div class="ckgrid">${L.CHECKIN_SITES.map(([id, t, sided]) => `<div class="ckrow"><span>${t}</span>${(sided ? ['left', 'right'] : ['']).map(sd => `<input class="txt ck" inputmode="decimal" type="number" step="0.1" data-k="${id}${sd ? ':' + sd : ''}" placeholder="${sd ? sd[0].toUpperCase() : '—'}" value="${esc(c.values[id + (sd ? ':' + sd : '')] ?? '')}">`).join('')}</div>`).join('')}</div>
+      <button class="chip ${c.photos ? 'hot' : ''}" data-a="cphoto" style="margin:12px 0 4px">${c.photos ? 'Progress photos taken ✓' : 'Progress photos taken?'}</button>
+      <p class="sub small">Photos: phone on a fixed stand at navel height, tape marks on floor and wall, morning before eating, same shorts and light. Front, side and back relaxed, plus front and back double biceps.</p>
+      <button class="go" data-a="checkinsave">Save check-in</button>`;
   } else if (sh.type === 'plan') body = planSheet();
   else if (sh.type === 'exmenu') {
     const sess = L.activeSession(S), st = sess && curState(sess), fresh = st && L.isFresh(st);
@@ -433,6 +455,7 @@ function tick() {
       rt.textContent = over ? '+' + L.fmtClock(-left) : L.fmtClock(Math.ceil(left));
       rt.classList.toggle('over', over); $('#rest').classList.toggle('overtime', over);
       $('#rsub').textContent = over ? 'Over target. Time to lift.' : `left of ${L.fmtClock(target)}`;
+      const arc = $('#rarc'); if (arc) { arc.setAttribute('stroke-dashoffset', String(over ? 0 : RC * (1 - Math.max(0, Math.min(1, left / target))))); arc.classList.toggle('over', over); }
       if (over && document.visibilityState === 'visible' && now >= (ui.beeped[key] || 0)) { ui.beeped[key] = now + 30000; beep(); } // repeats every 30 s while over
       if (ui.pushKey !== key + target && relayOn()) { ui.pushKey = key + target; relaySchedule(left); }
     } else if (rt && L.isTransition(sess, st) && st.lastEnd) {
@@ -468,12 +491,12 @@ async function wake() {
 // ---------- actions ----------
 async function startSession() {
   const p = L.position(S, PLAN), ps = L.routine(PLAN, ui.pickWeek ?? p.week, ui.pickDay ?? p.day), today = L.localDate();
-  const readiness = ui.readiness, adj = L.adjustSession(ps, readiness);
-  ui.view = 'session'; ui.ctx = null; ui.pickWeek = ui.pickDay = null; ui.readiness = null; localStorage.removeItem('stag_ready');
+  const readiness = ui.readiness, adj = L.adjustSession(ps, readiness), where = defaultWhere(), withp = ui.with || '';
+  ui.view = 'session'; ui.where = undefined; ui.with = ''; ui.ctx = null; ui.pickWeek = ui.pickDay = null; ui.readiness = null; localStorage.removeItem('stag_ready');
   await act('session_start', {
     session_id: L.uid('S'), planned_session_id: ps.id, week: ps.week, day: ps.day, gym_id: '', date: today, timezone: L.tz(),
     readiness, why: adj.why, items: adj.items, planned_set_count: adj.planned_set_count, base_set_count: adj.base_set_count,
-    deload: ps.deload, app_version: L.APP_VERSION });
+    deload: ps.deload, where, with: withp, app_version: L.APP_VERSION });
 }
 
 function setRecord(sess, st, over = {}) {
@@ -546,11 +569,13 @@ function filesFor(sessions, label) {
     { name: `stag_sessions_${label}.csv`, text: toCsv(L.SESSIONS_COLS, sessions.map(s => L.sessionRow(s, S))), type: 'text/csv' },
     { name: `stag_sets_${label}.csv`, text: toCsv(L.SETS_COLS, sets), type: 'text/csv' },
     { name: `stag_body_events_${label}.csv`, text: toCsv(L.BODY_COLS, be.map(L.bodyRow)), type: 'text/csv' }];
+  const exportedCk = new Set(S.exports.flatMap(e => e.checkin_ids || [])), cks = S.checkins.filter(c => label === 'all' || !exportedCk.has(c.checkin_id));
+  if (cks.length || label === 'all') files.push({ name: `stag_body_checkins_${label}.csv`, text: toCsv(L.CHECKIN_COLS, cks.flatMap(L.checkinRows)), type: 'text/csv' });
   if (acts.length || label === 'all') files.push({ name: `stag_activities_${label}.csv`, text: toCsv(L.ACTIVITY_COLS, acts.map(L.activityRow)), type: 'text/csv' });
   const to = LOG.length ? LOG[LOG.length - 1].id : 0;
   if (label !== 'all') files.push({ name: `stag_events_${label}.json`, type: 'application/json',
     text: JSON.stringify({ app: 'stag', version: L.APP_VERSION, exported_utc: new Date().toISOString(), from_event_id: S.lastExportedEventId, to_event_id: to, log: LOG.filter(e => e.id > S.lastExportedEventId) }) });
-  return { files, bodyIds: be.map(e => e.event_id), actIds: acts.map(a => a.activity_id), to };
+  return { files, bodyIds: be.map(e => e.event_id), actIds: acts.map(a => a.activity_id), ckIds: cks.map(c => c.checkin_id), to };
 }
 async function deliver(files) {
   const fs = files.map(f => new File([f.text], f.name, { type: f.type || 'text/csv' }));
@@ -566,10 +591,10 @@ async function deliver(files) {
   return 'downloaded';
 }
 async function exportSessions(ids, label) {
-  const sessions = ids.map(i => S.sessions[i]).filter(s => s && !s.voided), { files, bodyIds, actIds, to } = filesFor(sessions, label);
+  const sessions = ids.map(i => S.sessions[i]).filter(s => s && !s.voided), { files, bodyIds, actIds, ckIds, to } = filesFor(sessions, label);
   const how = await deliver(files);
   if (how === 'cancelled') return; // no banner for a cancel
-  await act('export', { kind: label, session_ids: ids, body_event_ids: bodyIds, activity_ids: actIds, max_event_id: label === 'all' ? 0 : to, how });
+  await act('export', { kind: label, session_ids: ids, body_event_ids: bodyIds, activity_ids: actIds, checkin_ids: ckIds, max_event_id: label === 'all' ? 0 : to, how });
   toast(how === 'shared' ? 'Exported.' : `Downloaded ${files.length} files.`);
 }
 
@@ -684,6 +709,19 @@ document.addEventListener('click', async ev => {
     }
     // overview and exercise menu
     case 'planopen': ui.sheet = { type: 'plan' }; render(); break;
+    case 'wwopen': ui.sheet = { type: 'ww' }; render(); break;
+    case 'wwsave': ui.where = ($('#dwhere') || { value: '' }).value.trim(); ui.with = ($('#dwith') || { value: '' }).value.trim(); ui.sheet = null; render(); break;
+    case 'checkinopen': ui.ck = { unit: S.settings.tape_unit || 'in', values: {}, photos: false }; ui.sheet = { type: 'checkin' }; render(); break;
+    case 'cunit': document.querySelectorAll('.ck').forEach(i => { ui.ck.values[i.dataset.k] = i.value; }); ui.ck.unit = v; render(); break;
+    case 'cphoto': ui.ck.photos = !ui.ck.photos; el.classList.toggle('hot', ui.ck.photos); el.textContent = ui.ck.photos ? 'Progress photos taken ✓' : 'Progress photos taken?'; break;
+    case 'checkinsave': {
+      document.querySelectorAll('.ck').forEach(i => { ui.ck.values[i.dataset.k] = i.value; });
+      const vals = Object.fromEntries(Object.entries(ui.ck.values).filter(([, x]) => x !== '' && !isNaN(+x)));
+      if (!Object.keys(vals).length && !ui.ck.photos) { toast('Nothing entered.'); break; }
+      const unit = ui.ck.unit; ui.sheet = null;
+      await actMany([['setting', { key: 'tape_unit', value: unit }], ['body_checkin', { checkin_id: L.uid('ck'), date: L.localDate(), timezone: L.tz(), unit, values: vals, photos: ui.ck.photos }]]);
+      toast('Check-in saved.'); break;
+    }
     case 'exmenu': ui.sheet = { type: 'exmenu' }; render(); break;
     case 'variants': ui.sheet = { type: 'variants' }; render(); break;
     case 'pickvar': ui.sheet = null; ui.ctx = null; await act('variant_set', { session_id: sess.session_id, exercise_idx: st.idx, variant_id: v }); break;

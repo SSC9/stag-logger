@@ -1,7 +1,7 @@
 // Pure logic: folding the event log into state, week position, readiness rules, suggested
 // weights, left/right sets, rest state, timing derivation, streaks, and export rows.
 // No DOM, no storage.
-export const APP_VERSION = '0.3.0';
+export const APP_VERSION = '0.4.0';
 export const SCALES = { rir: 'rir_v1', readiness: 'readiness_v1', rpe: 'srpe_cr10_v1', severity: 'severity_v1' };
 export const REASONS = [
   ['failure', 'Hit failure'], ['gassed', 'Gassed'], ['pain', 'Pain'], ['time', 'Out of time'],
@@ -56,7 +56,7 @@ export const restFor = (plan, key, vid) => (plan.variants[vid] && plan.variants[
 
 // ---------- fold ----------
 export function fold(log, plan) {
-  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], activities: [], exports: [], lastExportedEventId: 0 };
+  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], activities: [], checkins: [], exports: [], lastExportedEventId: 0 };
   for (const r of log) {
     const d = r.data || {}; const sess = d.session_id ? S.sessions[d.session_id] : null;
     switch (r.type) {
@@ -64,7 +64,7 @@ export function fold(log, plan) {
       case 'baselines_loaded': for (const row of d.rows) S.baselines[row.key] = row; break;
       case 'session_start':
         S.sessions[d.session_id] = { ...d, items: [...d.items], started_utc: r.t, sets: [], skipped: [], nexts: [], ended: null, rpe: null, rpeSkipped: false,
-          pendingStart: null, restEnds: {}, restExtends: {}, note: '', where: '', with: '', voided: false, variantSel: {}, perSideSel: {} };
+          pendingStart: null, restEnds: {}, restExtends: {}, note: '', where: d.where || '', with: d.with || '', voided: false, variantSel: {}, perSideSel: {} };
         S.order.push(d.session_id); break;
       case 'variant_set': if (sess) { sess.variantSel[d.exercise_idx] = d.variant_id; S.settings['variant:' + sess.items[d.exercise_idx].key] = d.variant_id; } break;
       case 'perside_set': if (sess) { sess.perSideSel[d.exercise_idx] = d.value; if (d.variant_id) S.settings['perside:' + d.variant_id] = d.value; } break;
@@ -91,6 +91,7 @@ export function fold(log, plan) {
       case 'body_event': S.bodyEvents.push({ side: '', ...d, logged_utc: r.t }); break;
       case 'activity_logged': S.activities.push({ ...d, logged_utc: r.t, voided: false }); break;
       case 'activity_void': { const a = S.activities.find(x => x.activity_id === d.activity_id); if (a) a.voided = d.void !== false; } break;
+      case 'body_checkin': S.checkins.push({ ...d, logged_utc: r.t }); break;
       case 'export': S.exports.push({ ...d, t: r.t }); if (d.max_event_id) S.lastExportedEventId = Math.max(S.lastExportedEventId, d.max_event_id); break;
     }
   }
@@ -380,3 +381,16 @@ export function activityRow(a) {
     type: a.type, rpe_0_10: a.rpe ?? '', rpe_scale_id: SCALES.rpe, where_label: a.where || '', with_label: a.with || '', note: a.note || '',
     source: 'manual', logged_utc: a.logged_utc };
 }
+
+// ---------- monthly body check-in (tape measurements) ----------
+export const CHECKIN_SITES = [['arm_relaxed', 'Upper arm, relaxed', 1], ['arm_flexed', 'Upper arm, flexed', 1], ['chest', 'Chest', 0], ['waist', 'Waist (at navel)', 0],
+  ['hips', 'Hips', 0], ['thigh', 'Thigh', 1], ['calf', 'Calf', 1]];
+export const CHECKIN_COLS = ['checkin_id', 'date', 'timezone', 'site', 'side', 'value', 'unit', 'value_cm', 'photos_taken', 'note', 'logged_utc', 'source'];
+export function checkinRows(c) {
+  return Object.entries(c.values || {}).filter(([, v]) => v !== '' && v !== null && !isNaN(+v)).map(([k, v]) => {
+    const [site, side] = k.split(':');
+    return { checkin_id: c.checkin_id, date: c.date, timezone: c.timezone, site, side: side || '', value: +v, unit: c.unit,
+      value_cm: Math.round(+v * (c.unit === 'in' ? 2.54 : 1) * 10) / 10, photos_taken: !!c.photos, note: c.note || '', logged_utc: c.logged_utc, source: 'manual' };
+  });
+}
+export const checkinDue = S => { const last = S.checkins[S.checkins.length - 1]; return !last || (Date.now() - Date.parse(last.logged_utc)) > 28 * 86400000; };

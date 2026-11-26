@@ -1,4 +1,4 @@
-# STAG logger (V0.3)
+# STAG logger (V0.4)
 
 A phone-first workout logger for one person. Plain HTML and JavaScript, no backend, no accounts, no analytics. Every set is saved on the device the moment it is logged (IndexedDB). It works offline once installed on the iPhone home screen.
 
@@ -62,3 +62,13 @@ Generate `stag_baselines.csv` privately (the script lives in the Drive, not here
 - **Progression.** Bodyweight and trunk lifts progress by reps, not added load. Exercises carry a load model (see the exercise catalog) so effective load can be computed later, for example single-leg calf raise = two dumbbells plus bodyweight.
 - **Export** now produces the session's CSVs plus `stag_events_*.json` (only events since your last export). Activities are included when there are new ones.
 - **Optional rest alerts** through a tiny push relay (`relay/`), not yet deployed. See `relay/README.md`.
+
+## V0.4 changes
+- Colors from the STAG logo (forest green, antler cream and brown, gold). Log is the gold button; Start is forest green.
+- Header: STAG, with "Strength Training And Growth" as subtext.
+- Rest screen: a gold progress ring around the timer (turns rust when over target); the stag silhouette is gone.
+- Sheets lock the page behind them, so scrolling stays inside the sheet (fixes the plan-overview scroll freeze on iPhone).
+- Plan overview: a small body map next to every lift showing what it targets.
+- Left and right name the working limb (for example "Left leg (front)" on split squats).
+- Optional "Where" and "With" chips on Today before Start; remembered and editable later.
+- Monthly Body check-in: tape measurements in inches or cm, left and right where relevant, and a progress-photo prompt. Exported as `stag_body_checkins_*.csv`.
