@@ -35,7 +35,7 @@ V = {
  "rope_pushdown": ("Rope pushdown", "Triceps_Pushdown_-_Rope_Attachment", "Cable", 0, 0, 5, 20),
  "skull_crusher": ("Skull crusher", "EZ-Bar_Skullcrusher", "E-Z bar", 0, 0, 2.5, 20),
  "machine_triceps_extension": ("Machine triceps extension", "Machine_Triceps_Extension", "Machine", 0, 0, 5, 30),
- "calf_raise_db": ("Single-leg calf raise", "Standing_Dumbbell_Calf_Raise", "Dumbbell", 1, 0, 5, 15),
+ "calf_raise_db": ("Single-leg calf raise", "Standing_Dumbbell_Calf_Raise", "Dumbbell", 1, 1, 5, 15),
  "calf_raise_machine": ("Standing calf raise", "Standing_Calf_Raises", "Machine", 0, 0, 10, 50),
  "leg_press_calf": ("Calf press (leg press)", "Calf_Press_On_The_Leg_Press_Machine", "Machine", 0, 0, 10, 60),
  "leg_press": ("Leg press", "Leg_Press", "Machine", 0, 0, 10, 90),
@@ -102,6 +102,21 @@ S = {
  "Weighted crunch or hanging leg raise": ("weighted_crunch_leg_raise", ["abs"], 90, ["hanging_leg_raise", "weighted_crunch", "cable_crunch"]),
 }
 
+
+# ---- rest by exercise type, progression mode and load model (used by the app and the exercise catalog) ----
+HEAVY = {"box_squat", "romanian_deadlift", "db_rdl", "leg_press", "hack_squat", "db_bench_press", "incline_press", "machine_chest_press",
+         "machine_incline_press", "db_overhead_press", "machine_shoulder_press", "barbell_ohp", "barbell_hip_thrust", "hip_thrust"}
+COMPOUND = {"goblet_squat", "split_squat", "one_arm_db_row", "two_db_row", "seated_cable_row", "lat_pulldown", "pull_up", "chin_up",
+            "assisted_pull_up", "pushup", "incline_pushup", "machine_fly"}
+CORE = {"cable_crunch", "crunch", "hanging_leg_raise", "weighted_crunch"}
+REST = lambda vid: 150 if vid in HEAVY else 120 if vid in COMPOUND else 60 if vid in CORE else 90
+REPS_FIRST = {"crunch", "hanging_leg_raise", "pushup", "incline_pushup", "pull_up", "chin_up", "assisted_pull_up", "glute_bridge", "ball_leg_curl"}
+# load model: external = only the weight logged; bw_plus = logged weight plus a fraction of bodyweight (fractions are assumptions);
+# assist = bodyweight minus assistance; none = bodyweight-only with no meaningful load number
+LOAD = {"pull_up": ("bw_plus", 1.0), "chin_up": ("bw_plus", 1.0), "assisted_pull_up": ("assist", 1.0), "pushup": ("bw_plus", 0.65),
+        "incline_pushup": ("bw_plus", 0.45), "calf_raise_db": ("bw_plus", 1.0), "split_squat": ("bw_plus", 0.6),
+        "crunch": ("none", None), "hanging_leg_raise": ("none", None), "glute_bridge": ("none", None), "ball_leg_curl": ("none", None)}
+
 db = {e["id"]: e for e in json.load(open(os.path.join(db_dir, "dist", "exercises.json")))}
 rows = list(csv.DictReader(open(plan_csv)))
 
@@ -132,8 +147,11 @@ for vid in sorted(used):
         shutil.copy(os.path.join(db_dir, "exercises", dbid, f"{i}.jpg"), os.path.join(dst, f"{i}.jpg"))
         imgs.append(f"img/{dbid}/{i}.jpg"); n += 1
     variants[vid] = {"name": name, "db_id": dbid, "label": label, "per_side": bool(per_side), "each": bool(each),
-                     "step_lb": step, "start_lb": start, "images": imgs}
+                     "step_lb": step, "start_lb": start, "images": imgs,
+                     "rest_s": REST(vid), "progress": "reps" if vid in REPS_FIRST else "load",
+                     "load_model": LOAD.get(vid, ("external", None))[0], "bw_fraction": LOAD.get(vid, ("external", None))[1],
+                     "ext_mult": 2 if each else 1}
 
-out = {"block": "block1", "version": 2, "exercises": exercises, "variants": variants, "sessions": list(sessions.values())}
+out = {"block": "block1", "version": 3, "exercises": exercises, "variants": variants, "sessions": list(sessions.values())}
 json.dump(out, open(os.path.join(root, "data", "plan.json"), "w"), indent=1)
 print(f"{len(exercises)} slots, {len(variants)} variants, {len(sessions)} sessions, {n} image files")

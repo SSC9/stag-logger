@@ -53,3 +53,18 @@ Mark each line: pass, fail, or note. Anything marked "unverified" in the README 
 
 ## Notes to bring back
 What was slow, what took too many taps, what you wanted on the card that was missing.
+
+## V0.3 additions
+- [ ] Readiness: tap, change, tap again before Start; only the final value is saved with the session. It is cleared after Start.
+- [ ] First set of a lift shows a green "Start set"; tapping it turns the button into "Log set" with a running "Set 0:23".
+- [ ] Sets 2 and later: after Ready, the button is already "Log set" and the timer is running. Compare the set time with how long it really took.
+- [ ] Rest label reads "left of 2:30" (target per exercise type). +30 s extends it. After the target the screen goes red with an alert every 30 s.
+- [ ] Plan overview (grid icon, top right): statuses and the body map update as you go.
+- [ ] Skip a lift for "Gym too busy": offered Switch exercise, Do this lift later, Skip. "Later" moves it to the end.
+- [ ] Journal > Details: add Where and Who with; they appear on the summary and in History.
+- [ ] Other activity: log a tennis session; it appears in History.
+- [ ] Soreness or pain: select several areas (body or list), set severities, Save once.
+- [ ] Change session effort from the summary or History.
+- [ ] Export: the share sheet shows the CSVs plus the events JSON, and no stray "STAG export" text file.
+- [ ] Set note edited later does not create a corrected row (check the CSV: `is_current` true, no extra row).
+- [ ] Rest alerts (only after the relay is deployed): Data & settings > Rest alerts, Enable, Test in 10 s with the phone locked; note whether the Apple Watch taps your wrist and what sound plays.

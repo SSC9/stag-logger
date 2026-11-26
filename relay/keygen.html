@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>STAG relay keys</title>
+<body style="font:15px system-ui;max-width:640px;margin:24px auto;padding:0 16px">
+<h2>Generate relay keys</h2>
+<p>Runs only in this browser tab. Nothing is sent anywhere. Copy the values into Cloudflare secrets and the app, then close the tab.</p>
+<button id="go">Generate keys</button>
+<h3>Public key (also paste into the app)</h3><textarea id="pub" rows="2" style="width:100%"></textarea>
+<h3>Private key JWK (secret VAPID_PRIVATE_JWK; never put in the repo)</h3><textarea id="priv" rows="6" style="width:100%"></textarea>
+<h3>Relay token (secret RELAY_TOKEN, also paste into the app)</h3><textarea id="tok" rows="1" style="width:100%"></textarea>
+<script>
+const b64u = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+document.getElementById('go').onclick = async () => {
+  const k = await crypto.subtle.generateKey({name:'ECDSA', namedCurve:'P-256'}, true, ['sign','verify']);
+  document.getElementById('pub').value = b64u(await crypto.subtle.exportKey('raw', k.publicKey));
+  document.getElementById('priv').value = JSON.stringify(await crypto.subtle.exportKey('jwk', k.privateKey));
+  document.getElementById('tok').value = b64u(crypto.getRandomValues(new Uint8Array(24)));
+};
+</script></body>

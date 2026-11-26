@@ -24,12 +24,13 @@ export function bodyMapSvg(regions) {
     <g>${OUTLINE}</g><g transform="translate(110 0)">${OUTLINE}</g>${hot(FRONT, FRONT_CENTER, 0)}${hot(BACK, BACK_CENTER, 110)}</svg>`;
 }
 
-// Tappable labeled body. view: 'front' | 'back'. In the front view the person's left is on the viewer's right.
+// Tappable labeled body (multi-select). view: 'front' | 'back'. In the front view the person's left is on the viewer's right.
+// sel is a Set of "region:side" keys.
 export function pickerSvg(view, sel) {
   const set = view === 'front' ? FRONT : BACK, center = view === 'front' ? FRONT_CENTER : BACK_CENTER;
   const personSide = half => (view === 'front' ? (half === 'imgL' ? 'right' : 'left') : (half === 'imgL' ? 'left' : 'right'));
   const piece = (id, shape, side, mirrored) => {
-    const on = sel && sel.region === id && (sel.side === side);
+    const on = sel && sel.has(`${id}:${side}`);
     return `<g data-a="avpick" data-r="${id}" data-s="${side}" class="rg${on ? ' on' : ''}" ${mirrored ? `transform="${MIRROR}"` : ''}>${shape}</g>`;
   };
   const parts = [];
@@ -39,9 +40,21 @@ export function pickerSvg(view, sel) {
   }
   for (const [id, shape] of Object.entries(center)) parts.push(piece(id, shape, 'center', false));
   const L = view === 'front' ? ['R', 'L'] : ['L', 'R']; // letters at image-left and image-right
-  return `<svg viewBox="0 0 100 200" class="picker" role="img" aria-label="${view} view of the body. Tap a region.">
+  return `<svg viewBox="0 0 100 200" class="picker" role="img" aria-label="${view} view of the body. Tap regions to select.">
     ${OUTLINE}${parts.join('')}
     <text x="4" y="14" class="lr">${L[0]}</text><text x="96" y="14" class="lr" text-anchor="end">${L[1]}</text></svg>`;
+}
+
+// Plan overview: regions shaded by fraction of planned sets done (frac: region -> 0..1; missing = not in the plan).
+export function heatSvg(frac) {
+  const draw = (set, center, dx) => {
+    const g = [];
+    for (const [id, shape] of Object.entries(set)) if (frac[id] !== undefined) { const o = (0.18 + 0.77 * frac[id]).toFixed(2); g.push(`<g fill-opacity="${o}"><g>${shape}</g><g transform="${MIRROR}">${shape}</g></g>`); }
+    for (const [id, shape] of Object.entries(center)) if (frac[id] !== undefined) g.push(`<g fill-opacity="${(0.18 + 0.77 * frac[id]).toFixed(2)}">${shape}</g>`);
+    return `<g transform="translate(${dx} 0)" fill="var(--hot)">${g.join('')}</g>`;
+  };
+  return `<svg viewBox="0 0 210 200" class="heat" role="img" aria-label="Body map of planned muscles, shaded by sets done">
+    <g>${OUTLINE}</g><g transform="translate(110 0)">${OUTLINE}</g>${draw(FRONT, FRONT_CENTER, 0)}${draw(BACK, BACK_CENTER, 110)}</svg>`;
 }
 
 // Clean stag silhouette (side view, facing right). Breathing animation is CSS.

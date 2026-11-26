@@ -1,5 +1,5 @@
 // Offline-first cache. Bump VERSION whenever a shipped file changes.
-const VERSION = 'stag-v0.2.0';
+const VERSION = 'stag-v0.3.0';
 const CORE = ['./', 'index.html', 'styles.css', 'manifest.webmanifest',
   'js/store.js', 'js/logic.js', 'js/csv.js', 'js/avatar.js', 'js/app.js', 'data/plan.json',
   'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
@@ -40,4 +40,13 @@ self.addEventListener('fetch', e => {
       throw err;
     }
   })());
+});
+
+// Rest alerts: the optional relay sends an empty push; the notification text is fixed here (no data in the push).
+self.addEventListener('push', e => {
+  e.waitUntil(self.registration.showNotification('Rest is up', { body: 'Time for your next set.', tag: 'stag-rest', renotify: true }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(l => (l.length ? l[0].focus() : self.clients.openWindow('./'))));
 });

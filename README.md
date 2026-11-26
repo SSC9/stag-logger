@@ -1,4 +1,4 @@
-# STAG logger (V0.2)
+# STAG logger (V0.3)
 
 A phone-first workout logger for one person. Plain HTML and JavaScript, no backend, no accounts, no analytics. Every set is saved on the device the moment it is logged (IndexedDB). It works offline once installed on the iPhone home screen.
 
@@ -50,3 +50,15 @@ Generate `stag_baselines.csv` privately (the script lives in the Drive, not here
 - No push relay yet: rest and effort prompts only fire while the app is open.
 - Rest beep and wake lock are foreground features. Timers stay correct after switching apps because they are computed from timestamps.
 - iOS behavior for backgrounding, the share sheet with files, wake lock and storage persistence is unverified until tested on the phone.
+
+## V0.3 changes
+- **Set clock.** The first set of each lift has a clear green **Start set** button (setup time before it is stored separately). After that, tapping **Ready** on the rest screen starts the next set's clock (`timing_source = ready_tap`); the right side after a left side starts at the left's log (`side_switch`). Manual starts are `manual`; "Log without timing" is `inferred`.
+- **Rest** targets are per exercise type (heavy compound 150 s, compound 120 s, isolation 90 s, core 60 s). The screen shows time left of the target, "+30 s" is stored (`rest_extended_s`), and going over turns the screen red with a repeating alert every 30 s.
+- **Readiness** is one answer per workout, saved when you press Start (no standalone check-ins).
+- **Plan overview** (grid icon): every lift's status plus a body map shaded by planned sets done per muscle. "Do this lift later" moves a lift to the end of the session; skipping for equipment or a busy gym offers to switch exercise or do it later.
+- **Details** (journal sheet): optional Where and Who with, with recent labels. **Other activity** (Today): tennis, a run, a class, with duration and effort; it shows in History and is flagged on the same day's lift session.
+- **Edits.** Session effort can be changed any time. Note-only edits are note events, not corrected rows. Exports add `is_current` and `superseded_by`, so analysis can ignore superseded rows.
+- **Body picker.** Multi-select with a severity per area and one Save (also used by the Pain end-early reason).
+- **Progression.** Bodyweight and trunk lifts progress by reps, not added load. Exercises carry a load model (see the exercise catalog) so effective load can be computed later, for example single-leg calf raise = two dumbbells plus bodyweight.
+- **Export** now produces the session's CSVs plus `stag_events_*.json` (only events since your last export). Activities are included when there are new ones.
+- **Optional rest alerts** through a tiny push relay (`relay/`), not yet deployed. See `relay/README.md`.

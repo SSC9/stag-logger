@@ -1,7 +1,7 @@
 // Pure logic: folding the event log into state, week position, readiness rules, suggested
 // weights, left/right sets, rest state, timing derivation, streaks, and export rows.
 // No DOM, no storage.
-export const APP_VERSION = '0.2.0';
+export const APP_VERSION = '0.3.0';
 export const SCALES = { rir: 'rir_v1', readiness: 'readiness_v1', rpe: 'srpe_cr10_v1', severity: 'severity_v1' };
 export const REASONS = [
   ['failure', 'Hit failure'], ['gassed', 'Gassed'], ['pain', 'Pain'], ['time', 'Out of time'],
@@ -11,13 +11,15 @@ export const REASONS_BY_LEVEL = {
   exercise: ['gassed', 'pain', 'time', 'equipment', 'busy', 'friction'],
   session: ['gassed', 'pain', 'time', 'equipment', 'busy', 'friction'] };
 export const reasonLabel = id => (REASONS.find(r => r[0] === id) || [id, id])[1];
-// id, label, has left/right
+// id, label, has left/right, group
 export const REGIONS = [
-  ['chest', 'Chest', 1], ['abs', 'Abs', 0], ['lower_back', 'Lower back', 0], ['lats', 'Upper back / lats', 1], ['traps', 'Traps / neck', 1],
-  ['side_delts', 'Side delt', 1], ['rear_delts', 'Rear delt', 1], ['biceps', 'Biceps', 1], ['triceps', 'Triceps', 1],
-  ['forearms', 'Forearm', 1], ['glutes', 'Glutes', 1], ['quads', 'Quad', 1], ['hamstrings', 'Hamstring', 1], ['calves', 'Calf', 1],
-  ['joint_shoulder', 'Shoulder joint', 1], ['joint_elbow', 'Elbow', 1], ['joint_wrist', 'Wrist', 1], ['joint_hip', 'Hip', 1],
-  ['joint_knee', 'Knee', 1], ['joint_ankle', 'Ankle', 1], ['other', 'Other', 0]];
+  ['chest', 'Chest', 1, 'Upper'], ['side_delts', 'Side delt', 1, 'Upper'], ['rear_delts', 'Rear delt', 1, 'Upper'], ['traps', 'Traps / neck', 1, 'Upper'],
+  ['lats', 'Upper back / lats', 1, 'Upper'], ['biceps', 'Biceps', 1, 'Upper'], ['triceps', 'Triceps', 1, 'Upper'], ['forearms', 'Forearm', 1, 'Upper'],
+  ['abs', 'Abs', 0, 'Core'], ['lower_back', 'Lower back', 0, 'Core'],
+  ['glutes', 'Glutes', 1, 'Lower'], ['quads', 'Quad', 1, 'Lower'], ['hamstrings', 'Hamstring', 1, 'Lower'], ['calves', 'Calf', 1, 'Lower'],
+  ['joint_shoulder', 'Shoulder joint', 1, 'Joints'], ['joint_elbow', 'Elbow', 1, 'Joints'], ['joint_wrist', 'Wrist', 1, 'Joints'],
+  ['joint_hip', 'Hip', 1, 'Joints'], ['joint_knee', 'Knee', 1, 'Joints'], ['joint_ankle', 'Ankle', 1, 'Joints'], ['other', 'Other', 0, 'Joints']];
+export const REGION_GROUPS = ['Upper', 'Core', 'Lower', 'Joints'];
 export function regionLabel(id, side) {
   const r = REGIONS.find(x => x[0] === id); const t = r ? r[1] : id;
   return side === 'left' || side === 'right' ? `${side[0].toUpperCase() + side.slice(1)} ${t.toLowerCase()}` : t;
@@ -25,7 +27,9 @@ export function regionLabel(id, side) {
 export const RIR_ANCHORS = [
   ['0', 'Failure: could not do another rep'], ['1', 'One more would have been a grind'],
   ['2', 'Another two, but bar speed was slowing'], ['3', 'Comfortable; speed barely dropped'], ['4', 'Easy; warm-up feel']];
-export const NOTE_TAGS = [['felt', 'Felt it in the target muscle'], ['notfelt', "Didn't feel it"], ['form', 'Form broke down'], ['pain', 'Pain or discomfort']];
+export const NOTE_TAGS = [['felt', 'Felt it in the target muscle'], ['notfelt', "Didn't feel it"], ['form', 'Form broke down'], ['pain', 'Pain or discomfort'],
+  ['left_lag', 'Left side lagged'], ['right_lag', 'Right side lagged']];
+export const ACTIVITY_TYPES = ['Run', 'Tennis', 'Class', 'Hike', 'Walk', 'Cycling', 'Swim', 'Sport', 'Other'];
 export const DAYS = ['Mon', 'Wed', 'Fri'];
 const JS_DAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const PARTIAL_BELOW = 0.7;
@@ -48,34 +52,46 @@ export const targetText = r => String(r).replace('-', '–');
 
 // ---------- plan helpers ----------
 export const defaultVariant = (plan, key) => plan.exercises[key].variants[0];
+export const restFor = (plan, key, vid) => (plan.variants[vid] && plan.variants[vid].rest_s) || plan.exercises[key].rest_s;
 
 // ---------- fold ----------
 export function fold(log, plan) {
-  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], readinessTaps: {}, exports: [] };
+  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], activities: [], exports: [], lastExportedEventId: 0 };
   for (const r of log) {
     const d = r.data || {}; const sess = d.session_id ? S.sessions[d.session_id] : null;
     switch (r.type) {
       case 'setting': S.settings[d.key] = d.value; break;
       case 'baselines_loaded': for (const row of d.rows) S.baselines[row.key] = row; break;
-      case 'readiness_tap': S.readinessTaps[d.date] = d.value; break;
       case 'session_start':
-        S.sessions[d.session_id] = { ...d, started_utc: r.t, sets: [], skipped: [], nexts: [], ended: null, rpe: null, rpeSkipped: false,
-          pendingStart: null, restEnds: {}, note: '', voided: false, variantSel: {}, perSideSel: {} };
+        S.sessions[d.session_id] = { ...d, items: [...d.items], started_utc: r.t, sets: [], skipped: [], nexts: [], ended: null, rpe: null, rpeSkipped: false,
+          pendingStart: null, restEnds: {}, restExtends: {}, note: '', where: '', with: '', voided: false, variantSel: {}, perSideSel: {} };
         S.order.push(d.session_id); break;
       case 'variant_set': if (sess) { sess.variantSel[d.exercise_idx] = d.variant_id; S.settings['variant:' + sess.items[d.exercise_idx].key] = d.variant_id; } break;
       case 'perside_set': if (sess) { sess.perSideSel[d.exercise_idx] = d.value; if (d.variant_id) S.settings['perside:' + d.variant_id] = d.value; } break;
-      case 'set_start': if (sess) sess.pendingStart = { exercise_idx: d.exercise_idx, side: d.side || 'both', t: r.t }; break;
-      case 'set_logged': if (sess) { sess.sets.push({ side: 'both', ...d, logged_utc: r.t }); sess.pendingStart = null; } break;
-      case 'set_note': if (sess) { const row = sess.sets.find(x => x.set_id === d.set_id); if (row) { row.note = d.note; row.tags = d.tags || []; } } break;
+      case 'set_start': if (sess) sess.pendingStart = { exercise_idx: d.exercise_idx, side: d.side || 'both', t: r.t, auto: '' }; break;
+      case 'set_logged': if (sess) {
+        sess.sets.push({ side: 'both', ...d, note_utc: d.note ? r.t : '', logged_utc: r.t });
+        // after a left side, the right side starts right away (flagged side_switch)
+        sess.pendingStart = d.side === 'left' ? { exercise_idx: d.exercise_idx, side: 'right', t: r.t, auto: 'side_switch' } : null;
+      } break;
+      case 'set_note': if (sess) { const row = sess.sets.find(x => x.set_id === d.set_id); if (row) { row.note = d.note; row.tags = d.tags || []; row.note_utc = r.t; } } break;
       case 'set_skipped': if (sess) sess.skipped.push({ side: 'both', ...d, t: r.t }); break;
-      case 'rest_end': if (sess) sess.restEnds[`${d.exercise_idx}:${d.set_order}`] = r.t; break;
+      case 'exercise_defer': if (sess) sess.items.push({ ...sess.items[d.exercise_idx], deferred_from: d.exercise_idx }); break;
+      case 'rest_end': if (sess) { // Ready tapped: the next set's clock starts now (flagged ready_tap)
+        sess.restEnds[`${d.exercise_idx}:${d.set_order}`] = r.t;
+        sess.pendingStart = { exercise_idx: d.exercise_idx, side: d.side || 'both', t: r.t, auto: 'ready_tap' };
+      } break;
+      case 'rest_extend': if (sess) { const k = `${d.exercise_idx}:${d.set_order}`; sess.restExtends[k] = (sess.restExtends[k] || 0) + (d.seconds || 30); } break;
       case 'exercise_next': if (sess) sess.nexts.push({ ...d, t: r.t }); break;
       case 'session_end': if (sess) sess.ended = { ...d, t: r.t }; break;
-      case 'session_rpe': if (sess) { if (d.skipped) sess.rpeSkipped = true; else { sess.rpe = d.rpe; sess.rpe_utc = r.t; } } break;
+      case 'session_rpe': if (sess) { if (d.skipped) sess.rpeSkipped = true; else { sess.rpe = d.rpe; sess.rpe_utc = r.t; sess.rpeSkipped = false; } } break;
       case 'workout_note': if (sess) sess.note = d.note; break;
+      case 'session_details': if (sess) { sess.where = d.where || ''; sess.with = d.with || ''; } break;
       case 'session_void': if (sess) sess.voided = d.void !== false; break;
       case 'body_event': S.bodyEvents.push({ side: '', ...d, logged_utc: r.t }); break;
-      case 'export': S.exports.push({ ...d, t: r.t }); break;
+      case 'activity_logged': S.activities.push({ ...d, logged_utc: r.t, voided: false }); break;
+      case 'activity_void': { const a = S.activities.find(x => x.activity_id === d.activity_id); if (a) a.voided = d.void !== false; } break;
+      case 'export': S.exports.push({ ...d, t: r.t }); if (d.max_event_id) S.lastExportedEventId = Math.max(S.lastExportedEventId, d.max_event_id); break;
     }
   }
   for (const id of S.order) {
@@ -84,10 +100,12 @@ export function fold(log, plan) {
     s.activeSets = s.sets.filter(x => !sup.has(x.set_id))
       .sort((a, b) => a.exercise_idx - b.exercise_idx || a.set_order - b.set_order || SIDE_ORDER[a.side] - SIDE_ORDER[b.side]);
     s.superseded = sup;
+    s.supersededBy = Object.fromEntries(s.sets.filter(x => x.corrects_set_id).map(x => [x.corrects_set_id, x.set_id]));
     s.currentIdx = s.nexts.length;
     s.performed = new Set(s.activeSets.map(x => x.exercise_idx + ':' + x.set_order)).size;
     s.completedExercises = s.items.filter((it, i) =>
-      s.activeSets.some(x => x.exercise_idx === i) && !s.skipped.some(x => x.exercise_idx === i)).length;
+      s.activeSets.some(x => x.exercise_idx === i) && !s.skipped.some(x => x.exercise_idx === i && !x.deferred)).length;
+    s.baseItemCount = s.items.filter(i => !('deferred_from' in i)).length;
     s.completion = s.planned_set_count ? s.performed / s.planned_set_count : 0;
     s.partial = s.completion < PARTIAL_BELOW;
   }
@@ -96,6 +114,11 @@ export function fold(log, plan) {
 
 export const activeSession = S => S.order.map(i => S.sessions[i]).filter(s => !s.ended && !s.voided).pop() || null;
 export const sessionsDone = (S, incVoided = false) => S.order.map(i => S.sessions[i]).filter(s => s.ended && (incVoided || !s.voided));
+export const recentLabels = (S, field) => {
+  const seen = []; for (const id of [...S.order].reverse()) { const v = (S.sessions[id][field] || '').trim(); if (v && !seen.includes(v)) seen.push(v); }
+  for (const a of [...S.activities].reverse()) { const v = ((field === 'where' ? a.where : a.with) || '').trim(); if (v && !seen.includes(v)) seen.push(v); }
+  return seen.slice(0, 6);
+};
 
 // ---------- exercise state: variant, sides, rest ----------
 export function variantOf(S, plan, sess, idx) {
@@ -121,16 +144,32 @@ export function exState(S, plan, sess, idx) {
   let next = null;
   outer: for (let o = 1; o <= item.sets; o++) for (const sd of sides) if (!resolved(o, sd)) { next = { order: o, side: sd }; break outer; }
   const setsDone = [...Array(item.sets).keys()].filter(i => sides.every(sd => resolved(i + 1, sd))).length;
-  const exDone = next === null;
   const performedSets = new Set(cur.map(x => x.set_order)).size;
+  const exDone = next === null;
   // rest is due after a full set, before the next set starts, until the user taps Ready
-  const restDue = !exDone && next.side === sides[0] && next.order > 1 && !sess.restEnds[`${idx}:${next.order - 1}`];
+  const restKey = next ? `${idx}:${next.order - 1}` : null;
+  const restDue = !exDone && next.side === sides[0] && next.order > 1 && !sess.restEnds[restKey];
   const ends = [...cur.map(x => x.set_end_utc), ...sk.map(x => x.t)].sort();
-  return { idx, item, slot, vid, variant, perSide, sides, cur, sk, next, setsDone, performedSets, total: item.sets, exDone, restDue,
+  const rest_s = restFor(plan, item.key, vid);
+  return { idx, item, slot, vid, variant, perSide, sides, cur, sk, next, setsDone, performedSets, total: item.sets, exDone, restDue, restKey,
+    rest_s, restExtra: restKey ? (sess.restExtends[restKey] || 0) : 0,
     lastEnd: ends[ends.length - 1] || null, last: idx >= sess.items.length - 1,
     setOrder: next ? next.order : item.sets, side: next ? next.side : sides[0] };
 }
 export const isTransition = (sess, st) => st.exDone && sess.nexts.length === st.idx;
+export const isFresh = st => !st.cur.length && !st.sk.length;
+
+// planned vs done sets per body region (non-deferred items count as planned; performed sets of any item count as done)
+export function muscleProgress(S, plan, sess) {
+  const planned = {}, done = {};
+  sess.items.forEach((it, i) => {
+    const regions = plan.exercises[it.key].regions;
+    if (!('deferred_from' in it)) for (const r of regions) planned[r] = (planned[r] || 0) + it.sets;
+    const n = new Set(sess.activeSets.filter(x => x.exercise_idx === i).map(x => x.set_order)).size;
+    for (const r of regions) done[r] = (done[r] || 0) + n;
+  });
+  return { planned, done };
+}
 
 // ---------- week position (no calendar dates) ----------
 export function doneRoutines(S) { return new Set(sessionsDone(S).filter(s => s.completedExercises > 0).map(s => `${s.week}|${s.day}`)); }
@@ -147,6 +186,8 @@ export function position(S, plan, today = new Date()) {
     else { week = last.week + 1; nextDay = 'Mon'; }
   }
   const wd = weekdayName(today);
+  // already trained today: suggest the next routine in rotation, not the same weekday again
+  if (last && last.date === localDate(today)) return { week, day: nextDay, last };
   if (DAYS.includes(wd)) {
     let w = week;
     while (doneSet.has(`${w}|${wd}`) && w < maxWeek) w++;
@@ -174,7 +215,7 @@ export function adjustSession(ps, readiness) {
     items = items.map(i => ({ ...i, sets: Math.max(1, i.sets - 1), target_rir: '3', adjusted: true }));
     why = `Readiness ${readiness}: one fewer set per exercise and aim for 3 in reserve. Low readiness lowers effort; it never cancels the session.`;
   } else if (readiness) why = `Readiness ${readiness}: plan as written.`;
-  else why = 'No readiness tap yet: plan as written.';
+  else why = 'No readiness answer: plan as written.';
   if (ps.deload) why += ' Deload week: about 40% fewer sets, same weights.';
   return { items, why, planned_set_count: items.reduce((a, i) => a + i.sets, 0), base_set_count: base };
 }
@@ -196,13 +237,15 @@ export function suggest(S, plan, sess, st) {
   }
   const mine = cur.filter(x => x.side === side);
   if (mine.length) {
-    const last = mine[mine.length - 1]; let w = last.weight_lb, why = 'Same as your last set.';
-    if (ESTIMATE_SOURCES.includes(last.ghost_source) && last.rir !== null && last.rir !== undefined) {
+    const last = mine[mine.length - 1]; let w = last.weight_lb, why = 'Same as your last set.', reps = last.reps;
+    if (variant.progress === 'reps') { // bodyweight and trunk lifts progress by reps, not added load
+      if (last.rir !== null && last.rir !== undefined && last.rir >= 3 && last.reps < item.rep_high) { reps = last.reps + 1; why = 'Felt easy: try one more rep.'; }
+    } else if (ESTIMATE_SOURCES.includes(last.ghost_source) && last.rir !== null && last.rir !== undefined) {
       if (last.rir >= 4 || (last.rir >= 3 && last.reps >= item.rep_high)) { w += step; why = `Felt easy, so +${step} lb.`; }
       else if (last.rir === 0 && last.reps < item.rep_low) { w = Math.max(0, w - step); why = `Too heavy, so -${step} lb.`; }
       else why = 'That weight is about right.';
     }
-    return { weight: w, reps: last.reps, why, source: 'session' };
+    return { weight: w, reps, why, source: 'session' };
   }
   const prior = priorSessions(S, vid, sess.session_id)[0];
   if (prior) {
@@ -228,21 +271,29 @@ export function timingFor(sess, plan) {
   const byEnd = [...sess.activeSets].sort((a, b) => a.set_end_utc < b.set_end_utc ? -1 : 1);
   const T = {};
   byEnd.forEach((s, i) => {
-    const t = { set_duration_s: '', rest_after_s: '', rest_timing: '', transition_before_s: '', rest_target_s: '', rest_ready_utc: '', rest_cut_short: '' };
+    const t = { set_duration_s: '', rest_after_s: '', rest_timing: '', rest_target_s: '', rest_extended_s: '', rest_ready_s: '', rest_setup_s: '',
+      rest_ready_utc: '', rest_cut_short: '', rest_over_target_s: '', transition_before_s: '', transition_tap_s: '', transition_setup_s: '' };
     if (s.set_start_utc) t.set_duration_s = diffS(s.set_start_utc, s.set_end_utc);
     const nx = byEnd[i + 1], pv = byEnd[i - 1];
     if (nx && nx.exercise_idx === s.exercise_idx) {
-      t.rest_after_s = diffS(s.set_end_utc, nx.set_start_utc || nx.set_end_utc);
-      t.rest_timing = nx.set_start_utc ? 'manual' : 'inferred';
+      t.rest_after_s = diffS(s.set_end_utc, nx.set_start_utc || nx.set_end_utc); // total: set end to next set start (or end when untimed)
+      t.rest_timing = nx.timing_source || 'inferred';
       if (nx.set_order !== s.set_order) { // rest between full sets, with the Ready tap if any
-        const ready = sess.restEnds[`${s.exercise_idx}:${s.set_order}`];
-        t.rest_target_s = plan.exercises[sess.items[s.exercise_idx].key].rest_s;
-        if (ready) { t.rest_ready_utc = ready; t.rest_cut_short = diffS(s.set_end_utc, ready) < t.rest_target_s; }
+        const key = `${s.exercise_idx}:${s.set_order}`, ready = sess.restEnds[key];
+        const vid = s.variant_id || sess.items[s.exercise_idx].key;
+        const target = restFor(plan, sess.items[s.exercise_idx].key, vid), ext = sess.restExtends[key] || 0;
+        t.rest_target_s = target; t.rest_extended_s = ext;
+        if (ready) {
+          t.rest_ready_utc = ready; t.rest_ready_s = diffS(s.set_end_utc, ready);
+          t.rest_cut_short = t.rest_ready_s < target + ext; t.rest_over_target_s = Math.max(0, t.rest_ready_s - target - ext);
+          if (nx.set_start_utc) t.rest_setup_s = diffS(ready, nx.set_start_utc);
+        }
       }
     }
-    if (pv && pv.exercise_idx !== s.exercise_idx) {
+    if (pv && pv.exercise_idx !== s.exercise_idx) { // first row of a lift: transition runs from the last set to this set's start
       const tap = sess.nexts.find(n => n.to_idx === s.exercise_idx);
-      t.transition_before_s = diffS(pv.set_end_utc, tap ? tap.t : (s.set_start_utc || s.set_end_utc));
+      t.transition_before_s = diffS(pv.set_end_utc, s.set_start_utc || s.set_end_utc);
+      if (tap) { t.transition_tap_s = diffS(pv.set_end_utc, tap.t); if (s.set_start_utc) t.transition_setup_s = diffS(tap.t, s.set_start_utc); }
     }
     T[s.set_id] = t;
   });
@@ -250,64 +301,82 @@ export function timingFor(sess, plan) {
 }
 
 export const SETS_COLS = ['set_id', 'workout_id', 'date', 'exercise_id', 'exercise_slot', 'exercise_as_logged', 'set_order', 'side', 'weight_as_logged', 'unit_as_logged',
-  'unit_confidence', 'weight_kg', 'weight_lb', 'is_assistance', 'reps', 'side_mode', 'is_warmup', 'tags', 'note_verbatim',
-  'planned_reps', 'planned_reps_low', 'planned_reps_high', 'planned_rir', 'rir_actual', 'effort_scale_id', 'felt_target_muscle',
-  'form_flag', 'pain_flag', 'pain_area', 'rest_seconds', 'gym_id', 'set_start_utc', 'set_end_utc', 'timing_source', 'status',
-  'ended_reason', 'set_duration_s', 'rest_after_s', 'transition_before_s', 'rest_timing_source', 'rest_target_s', 'rest_ready_utc',
-  'rest_cut_short', 'is_first_time', 'is_calibration', 'suggested_weight_lb', 'suggested_reps', 'suggestion_source',
-  'status_overridden_from', 'corrects_set_id', 'timezone', 'source', 'confidence'];
+  'unit_confidence', 'weight_kg', 'weight_lb', 'is_assistance', 'reps', 'side_mode', 'is_warmup', 'tags', 'note_verbatim', 'note_utc',
+  'planned_reps', 'planned_reps_low', 'planned_reps_high', 'planned_rir', 'rir_actual', 'effort_scale_id', 'is_last_working_set', 'felt_target_muscle',
+  'form_flag', 'lagging_side', 'pain_flag', 'pain_area', 'rest_seconds', 'gym_id', 'set_start_utc', 'set_end_utc', 'timing_source', 'status',
+  'ended_reason', 'set_duration_s', 'rest_after_s', 'rest_timing_source', 'rest_target_s', 'rest_extended_s', 'rest_ready_s', 'rest_setup_s', 'rest_ready_utc',
+  'rest_cut_short', 'rest_over_target_s', 'transition_before_s', 'transition_tap_s', 'transition_setup_s', 'is_first_time', 'is_calibration',
+  'suggested_weight_lb', 'suggested_reps', 'suggestion_source', 'status_overridden_from', 'corrects_set_id', 'superseded_by', 'is_current',
+  'timezone', 'source', 'confidence'];
 
 export function setRows(sess, plan) {
   const T = timingFor(sess, plan), rows = [];
   const base = it => ({
     workout_id: sess.session_id, date: sess.date, unit_as_logged: 'lb', exercise_slot: it.key,
     planned_reps: `${it.rep_low}-${it.rep_high}`, planned_reps_low: it.rep_low, planned_reps_high: it.rep_high, planned_rir: it.target_rir,
-    effort_scale_id: SCALES.rir, gym_id: sess.gym_id || '', timezone: sess.timezone, source: 'tracker', is_assistance: '' });
+    effort_scale_id: SCALES.rir, gym_id: sess.where || sess.gym_id || '', timezone: sess.timezone, source: 'tracker', is_assistance: '' });
   const vname = (it, vid) => (plan.variants[vid] || {}).name || (plan.exercises[it.key] || {}).name || it.key;
   for (const s of sess.sets) { // raw log: includes superseded originals, with corrects_set_id on corrections
     const it = sess.items[s.exercise_idx], vid = s.variant_id || it.key, v = plan.variants[vid] || {};
-    const t = sess.superseded.has(s.set_id) ? {} : (T[s.set_id] || {}), tags = s.tags || [];
+    const current = !sess.superseded.has(s.set_id), t = current ? (T[s.set_id] || {}) : {}, tags = s.tags || [];
+    const lastSide = s.side === 'left' ? false : true;
     rows.push({ ...base(it), _i: s.exercise_idx, exercise_id: vid, exercise_as_logged: vname(it, vid), set_id: s.set_id, set_order: s.set_order, side: s.side,
       weight_as_logged: s.weight_lb, unit_confidence: 'confirmed', weight_kg: lbToKg(s.weight_lb), weight_lb: s.weight_lb, reps: s.reps,
-      side_mode: v.each || v.per_side ? 'each' : 'both', is_warmup: '', tags: tags.join(';'), note_verbatim: s.note || '', rir_actual: s.rir ?? '',
+      side_mode: v.each || v.per_side ? 'each' : 'both', is_warmup: '', tags: tags.join(';'), note_verbatim: s.note || '', note_utc: s.note_utc || '', rir_actual: s.rir ?? '',
+      is_last_working_set: s.set_order === it.sets && lastSide,
       felt_target_muscle: tags.includes('felt') ? 'yes' : tags.includes('notfelt') ? 'no' : '', form_flag: tags.includes('form') ? true : '',
+      lagging_side: tags.includes('left_lag') ? 'left' : tags.includes('right_lag') ? 'right' : '',
       pain_flag: tags.includes('pain') || s.ended_reason === 'pain' ? true : '', pain_area: s.pain_area || '', rest_seconds: t.rest_after_s ?? '',
       set_start_utc: s.set_start_utc || '', set_end_utc: s.set_end_utc, timing_source: s.timing_source, status: s.status,
-      ended_reason: s.ended_reason || '', set_duration_s: t.set_duration_s ?? '', rest_after_s: t.rest_after_s ?? '',
-      transition_before_s: t.transition_before_s ?? '', rest_timing_source: t.rest_timing || '', rest_target_s: t.rest_target_s ?? '',
-      rest_ready_utc: t.rest_ready_utc || '', rest_cut_short: t.rest_cut_short ?? '', is_first_time: !!s.is_first_time,
-      is_calibration: !!s.is_calibration, suggested_weight_lb: s.ghost_weight_lb ?? '', suggested_reps: s.ghost_reps ?? '',
+      ended_reason: s.ended_reason || '', set_duration_s: t.set_duration_s ?? '', rest_after_s: t.rest_after_s ?? '', rest_timing_source: t.rest_timing || '',
+      rest_target_s: t.rest_target_s ?? '', rest_extended_s: t.rest_extended_s ?? '', rest_ready_s: t.rest_ready_s ?? '', rest_setup_s: t.rest_setup_s ?? '',
+      rest_ready_utc: t.rest_ready_utc || '', rest_cut_short: t.rest_cut_short ?? '', rest_over_target_s: t.rest_over_target_s ?? '',
+      transition_before_s: t.transition_before_s ?? '', transition_tap_s: t.transition_tap_s ?? '', transition_setup_s: t.transition_setup_s ?? '',
+      is_first_time: !!s.is_first_time, is_calibration: !!s.is_calibration, suggested_weight_lb: s.ghost_weight_lb ?? '', suggested_reps: s.ghost_reps ?? '',
       suggestion_source: s.ghost_source || '', status_overridden_from: s.status_overridden_from || '', corrects_set_id: s.corrects_set_id || '',
-      confidence: s.timing_source === 'manual' ? 'confirmed' : 'inferred' });
+      superseded_by: sess.supersededBy[s.set_id] || '', is_current: current,
+      confidence: s.timing_source === 'inferred' ? 'inferred' : 'confirmed' });
   }
   for (const k of sess.skipped) { // skipped is not zero: weight and reps stay blank
     const it = sess.items[k.exercise_idx], vid = k.variant_id || it.key;
     rows.push({ ...base(it), _i: k.exercise_idx, exercise_id: vid, exercise_as_logged: vname(it, vid), set_id: k.set_id, set_order: k.set_order, side: k.side,
-      status: 'skipped', ended_reason: k.reason || '', pain_flag: k.reason === 'pain' ? true : '', pain_area: k.pain_area || '', confidence: 'confirmed' });
+      status: 'skipped', ended_reason: k.reason || '', pain_flag: k.reason === 'pain' ? true : '', pain_area: k.pain_area || '', is_current: true,
+      tags: k.deferred ? 'deferred' : '', confidence: 'confirmed' });
   }
   return rows.sort((a, b) => a._i - b._i || a.set_order - b.set_order || SIDE_ORDER[a.side] - SIDE_ORDER[b.side]);
 }
 
 export const SESSIONS_COLS = ['session_id', 'date', 'timezone', 'started_utc', 'ended_utc', 'duration_s', 'planned_session_id', 'week', 'day',
-  'gym_id', 'readiness_1_5', 'readiness_scale_id', 'readiness_adjustment', 'session_rpe_0_10', 'rpe_scale_id', 'rpe_logged_utc',
+  'gym_id', 'where_label', 'with_label', 'readiness_1_5', 'readiness_scale_id', 'readiness_utc', 'readiness_adjustment', 'session_rpe_0_10', 'rpe_scale_id', 'rpe_logged_utc',
   'sleep_prev_night_hours', 'bodyweight_nearest', 'ended_early', 'ended_reason', 'planned_set_count', 'base_set_count',
-  'completed_set_count', 'completed_exercise_count', 'completion_pct', 'partial', 'note', 'source', 'confidence', 'app_version'];
+  'completed_set_count', 'completed_exercise_count', 'completion_pct', 'partial', 'same_day_activity', 'note', 'source', 'confidence', 'app_version'];
 
-export function sessionRow(sess) {
+export function sessionRow(sess, S) {
+  const acts = S ? S.activities.filter(a => !a.voided && a.date === sess.date).map(a => a.type) : [];
   return {
     session_id: sess.session_id, date: sess.date, timezone: sess.timezone, started_utc: sess.started_utc,
     ended_utc: sess.ended ? sess.ended.t : '', duration_s: sess.ended ? diffS(sess.started_utc, sess.ended.t) : '',
-    planned_session_id: sess.planned_session_id, week: sess.week, day: sess.day, gym_id: sess.gym_id || '',
-    readiness_1_5: sess.readiness ?? '', readiness_scale_id: SCALES.readiness, readiness_adjustment: sess.why || '',
+    planned_session_id: sess.planned_session_id, week: sess.week, day: sess.day, gym_id: sess.where || sess.gym_id || '',
+    where_label: sess.where || '', with_label: sess.with || '',
+    readiness_1_5: sess.readiness ?? '', readiness_scale_id: SCALES.readiness, readiness_utc: sess.readiness ? sess.started_utc : '', readiness_adjustment: sess.why || '',
     session_rpe_0_10: sess.rpe ?? '', rpe_scale_id: SCALES.rpe, rpe_logged_utc: sess.rpe_utc || '',
     sleep_prev_night_hours: '', bodyweight_nearest: '', ended_early: sess.ended ? !!sess.ended.ended_early : '',
     ended_reason: sess.ended ? sess.ended.reason || '' : '', planned_set_count: sess.planned_set_count, base_set_count: sess.base_set_count,
     completed_set_count: sess.performed, completed_exercise_count: sess.completedExercises,
-    completion_pct: Math.round(sess.completion * 100), partial: sess.partial, note: sess.note || '', source: 'tracker', confidence: 'confirmed', app_version: APP_VERSION };
+    completion_pct: Math.round(sess.completion * 100), partial: sess.partial, same_day_activity: acts.join(';'), note: sess.note || '',
+    source: 'tracker', confidence: 'confirmed', app_version: APP_VERSION };
 }
 
 export const BODY_COLS = ['event_id', 'logged_at_utc', 'timezone', 'date', 'region', 'side', 'severity', 'type', 'source', 'scale_id', 'session_id'];
 export function bodyRow(e) {
   return { event_id: e.event_id, logged_at_utc: e.logged_utc, timezone: e.timezone, date: e.date, region: e.region, side: e.side || '',
     severity: e.severity, type: e.type, source: 'manual', scale_id: SCALES.severity, session_id: e.session_id || '' };
+}
+
+export const ACTIVITY_COLS = ['activity_id', 'date', 'timezone', 'start_utc', 'end_utc', 'duration_min', 'type', 'rpe_0_10', 'rpe_scale_id',
+  'where_label', 'with_label', 'note', 'source', 'logged_utc'];
+export function activityRow(a) {
+  return { activity_id: a.activity_id, date: a.date, timezone: a.timezone, start_utc: a.start_utc, end_utc: a.end_utc, duration_min: a.duration_min,
+    type: a.type, rpe_0_10: a.rpe ?? '', rpe_scale_id: SCALES.rpe, where_label: a.where || '', with_label: a.with || '', note: a.note || '',
+    source: 'manual', logged_utc: a.logged_utc };
 }
