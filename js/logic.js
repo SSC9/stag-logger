@@ -1,7 +1,7 @@
 // Pure logic: folding the event log into state, week position, readiness rules, suggested
 // weights, left/right sets, rest state, timing derivation, streaks, and export rows.
 // No DOM, no storage.
-export const APP_VERSION = '0.4.0';
+export const APP_VERSION = '0.4.1';
 export const SCALES = { rir: 'rir_v1', readiness: 'readiness_v1', rpe: 'srpe_cr10_v1', severity: 'severity_v1' };
 export const REASONS = [
   ['failure', 'Hit failure'], ['gassed', 'Gassed'], ['pain', 'Pain'], ['time', 'Out of time'],
@@ -56,7 +56,7 @@ export const restFor = (plan, key, vid) => (plan.variants[vid] && plan.variants[
 
 // ---------- fold ----------
 export function fold(log, plan) {
-  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], activities: [], checkins: [], exports: [], lastExportedEventId: 0 };
+  const S = { settings: {}, baselines: {}, sessions: {}, order: [], bodyEvents: [], activities: [], checkins: [], deleted: [], exports: [], lastExportedEventId: 0 };
   for (const r of log) {
     const d = r.data || {}; const sess = d.session_id ? S.sessions[d.session_id] : null;
     switch (r.type) {
@@ -92,6 +92,7 @@ export function fold(log, plan) {
       case 'activity_logged': S.activities.push({ ...d, logged_utc: r.t, voided: false }); break;
       case 'activity_void': { const a = S.activities.find(x => x.activity_id === d.activity_id); if (a) a.voided = d.void !== false; } break;
       case 'body_checkin': S.checkins.push({ ...d, logged_utc: r.t }); break;
+      case 'session_deleted': S.deleted.push({ session_id: d.deleted_session_id, deleted_utc: r.t }); break;
       case 'export': S.exports.push({ ...d, t: r.t }); if (d.max_event_id) S.lastExportedEventId = Math.max(S.lastExportedEventId, d.max_event_id); break;
     }
   }
@@ -394,3 +395,6 @@ export function checkinRows(c) {
   });
 }
 export const checkinDue = S => { const last = S.checkins[S.checkins.length - 1]; return !last || (Date.now() - Date.parse(last.logged_utc)) > 28 * 86400000; };
+
+// Tombstones: only the ID and time of a permanently deleted session, so downstream copies can be removed.
+export const DELETION_COLS = ['session_id', 'deleted_utc'];

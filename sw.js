@@ -1,5 +1,5 @@
 // Offline-first cache. Bump VERSION whenever a shipped file changes.
-const VERSION = 'stag-v0.4.0';
+const VERSION = 'stag-v0.4.1';
 const CORE = ['./', 'index.html', 'styles.css', 'manifest.webmanifest',
   'js/store.js', 'js/logic.js', 'js/csv.js', 'js/avatar.js', 'js/app.js', 'data/plan.json',
   'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
@@ -7,11 +7,12 @@ const CORE = ['./', 'index.html', 'styles.css', 'manifest.webmanifest',
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
     const c = await caches.open(VERSION);
-    await c.addAll(CORE);
+    // cache: 'reload' skips the browser's HTTP cache, so a new version never mixes old and new files
+    await c.addAll(CORE.map(u => new Request(u, { cache: 'reload' })));
     try {
-      const plan = await (await fetch('data/plan.json')).json();
-      const imgs = Object.values(plan.exercises).flatMap(x => x.images);
-      await c.addAll(imgs);
+      const plan = await (await fetch('data/plan.json', { cache: 'reload' })).json();
+      const imgs = [...new Set(Object.values(plan.variants || plan.exercises).flatMap(x => x.images || []))];
+      await c.addAll(imgs.map(u => new Request(u, { cache: 'reload' })));
     } catch (_) { /* images are cached on first use if this fails */ }
     self.skipWaiting();
   })());

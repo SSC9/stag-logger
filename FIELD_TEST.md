@@ -77,3 +77,8 @@ What was slow, what took too many taps, what you wanted on the card that was mis
 - [ ] Where / With chips on Today: pick or type, start a session, check the summary shows them.
 - [ ] Body check-in: enter a few measurements, mark photos taken, save; the "due" tag disappears; export includes the check-in CSV.
 - [ ] Top of the screen is crisp (no blur under the status bar). If not, send a screenshot.
+
+## V0.4.1 additions
+- [ ] Today shows one centered "Session details" button; after filling it, it shows the place and who.
+- [ ] Delete a test session permanently from History (two confirmations); it disappears and suggested weights no longer use it.
+- [ ] After updating, the app opens normally (no blank screen). In airplane mode, switch an exercise to a variant you have never opened: its image still shows.

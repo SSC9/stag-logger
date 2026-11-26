@@ -1,4 +1,4 @@
-import { openDb, loadAll, append, requestPersistence, isPersisted, wipe } from './store.js';
+import { openDb, loadAll, append, requestPersistence, isPersisted, wipe, deleteWhere } from './store.js';
 import * as L from './logic.js';
 import { toCsv, parseCsv } from './csv.js';
 import { bodyMapSvg, pickerSvg, heatSvg } from './avatar.js';
@@ -82,7 +82,10 @@ function sideName(st, side) {
 const RC = 2 * Math.PI * 54;
 const ring = (t, sub, arc) => `<div class="ringwrap"><svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="trk" cx="60" cy="60" r="54"/>${arc ? `<circle class="arc" id="rarc" cx="60" cy="60" r="54" stroke-dasharray="${RC.toFixed(1)}" stroke-dashoffset="0"/>` : ''}</svg><div class="ringtxt"><div class="rtime" id="rtime">${t}</div><div class="rsub" id="rsub">${sub}</div></div></div>`;
 const defaultWhere = () => ui.where ?? (L.recentLabels(S, 'where')[0] || '');
-const whereWithRow = () => `<div class="ww"><button class="wwb" data-a="wwopen">📍 ${defaultWhere() ? esc(defaultWhere()) : 'Where?'}</button><button class="wwb" data-a="wwopen">👥 ${ui.with ? esc(ui.with) : 'With? (optional)'}</button></div>`;
+const whereWithRow = () => {
+  const parts = [defaultWhere() ? `📍 ${esc(defaultWhere())}` : '', ui.with ? `with ${esc(ui.with)}` : ''].filter(Boolean);
+  return `<button class="sdbtn${parts.length ? ' set' : ''}" data-a="wwopen">${parts.length ? parts.join(' · ') : 'Session details'}</button>`;
+};
 
 // ---------- views ----------
 function render() {
@@ -271,6 +274,7 @@ function viewHistoryDetail(s) {
     <button class="go sec" data-a="wnote" data-sid="${s.session_id}">${s.note ? 'Edit journal and details' : 'Add journal and details'}</button>
     <button class="go" data-a="export" data-v="${s.session_id}">Export this session</button>
     <button class="go sec" data-a="${s.voided ? 'unvoid' : 'void'}" data-v="${s.session_id}">${s.voided ? 'Restore session' : 'Void session'}</button>
+    <button class="go danger-out" data-a="del1" data-v="${s.session_id}">Delete permanently</button>
   </div>`;
 }
 
@@ -376,7 +380,7 @@ function viewSheet() {
       <div class="kv"><span>Effort</span><span>${a.rpe ?? '—'}</span></div>${a.where ? `<div class="kv"><span>Where</span><span>${esc(a.where)}</span></div>` : ''}${a.with ? `<div class="kv"><span>With</span><span>${esc(a.with)}</span></div>` : ''}
       ${a.note ? `<p class="notebox">${esc(a.note)}</p>` : ''}<button class="go danger" data-a="avoid" data-v="${a.activity_id}">Remove activity</button>` : '';
   } else if (sh.type === 'ww') {
-    body = `${sheetHead('Where and with')}<p class="sub small">Optional. Saved with this session.</p>${detailsFields(defaultWhere(), ui.with).replace('<details ', '<details open ')}<button class="go" data-a="wwsave">Done</button>`;
+    body = `${sheetHead('Session details')}<p class="sub small">Optional. Saved with this session.</p>${detailsFields(defaultWhere(), ui.with).replace('<details ', '<details open ')}<button class="go" data-a="wwsave">Done</button>`;
   } else if (sh.type === 'checkin') {
     const c = ui.ck;
     body = `${sheetHead('Body check-in')}<p class="sub small">Monthly. Same time of day, same tape placement, ideally measured by the same person. Weight is filled from your scale later.</p>
@@ -411,6 +415,14 @@ function viewSheet() {
   } else if (sh.type === 'erase') {
     body = `${sheetHead('Erase everything?')}<p class="sub">This deletes every session, set, note and setting stored on this phone. It cannot be undone. Export first if you want a copy.</p>
       <button class="go danger" data-a="erasego">Erase all data</button><button class="go sec" data-a="close">Cancel</button>`;
+  } else if (sh.type === 'del1') {
+    const s = S.sessions[sh.sid];
+    body = `${sheetHead('Delete permanently?')}<p class="sub">This removes ${esc(s.day)} · Week ${s.week} (${esc(s.date)}) from this phone: every set, note, rest tap, pain entry and effort rating. It no longer counts toward suggested weights, streaks or exports. <b>This cannot be undone.</b></p>
+      <p class="sub small">Only its ID and the deletion time are kept, so copies you already exported are removed the next time the Mac ingests. Old export files in Drive still contain it until you delete them.</p>
+      <button class="go danger" data-a="del2" data-v="${sh.sid}">Continue</button><button class="go sec" data-a="close">Cancel</button>`;
+  } else if (sh.type === 'del2') {
+    body = `${sheetHead('Last check')}<p class="sub">Delete this session for good?</p>
+      <button class="go danger" data-a="delgo" data-v="${sh.sid}">Delete</button><button class="go sec" data-a="close">Keep it</button>`;
   } else if (sh.type === 'void') {
     body = `${sheetHead('Void this session?')}<p class="sub">It stays in the raw log but is left out of suggested weights, streaks and exports. You can restore it.</p>
       <button class="go danger" data-a="voidgo" data-v="${sh.sid}">Void session</button><button class="go sec" data-a="close">Cancel</button>`;
@@ -569,13 +581,15 @@ function filesFor(sessions, label) {
     { name: `stag_sessions_${label}.csv`, text: toCsv(L.SESSIONS_COLS, sessions.map(s => L.sessionRow(s, S))), type: 'text/csv' },
     { name: `stag_sets_${label}.csv`, text: toCsv(L.SETS_COLS, sets), type: 'text/csv' },
     { name: `stag_body_events_${label}.csv`, text: toCsv(L.BODY_COLS, be.map(L.bodyRow)), type: 'text/csv' }];
+  const exportedDel = new Set(S.exports.flatMap(e => e.deleted_ids || [])), dels = S.deleted.filter(d => label === 'all' || !exportedDel.has(d.session_id));
+  if (dels.length) files.push({ name: `stag_deletions_${label}.csv`, text: toCsv(L.DELETION_COLS, dels), type: 'text/csv' });
   const exportedCk = new Set(S.exports.flatMap(e => e.checkin_ids || [])), cks = S.checkins.filter(c => label === 'all' || !exportedCk.has(c.checkin_id));
   if (cks.length || label === 'all') files.push({ name: `stag_body_checkins_${label}.csv`, text: toCsv(L.CHECKIN_COLS, cks.flatMap(L.checkinRows)), type: 'text/csv' });
   if (acts.length || label === 'all') files.push({ name: `stag_activities_${label}.csv`, text: toCsv(L.ACTIVITY_COLS, acts.map(L.activityRow)), type: 'text/csv' });
   const to = LOG.length ? LOG[LOG.length - 1].id : 0;
   if (label !== 'all') files.push({ name: `stag_events_${label}.json`, type: 'application/json',
     text: JSON.stringify({ app: 'stag', version: L.APP_VERSION, exported_utc: new Date().toISOString(), from_event_id: S.lastExportedEventId, to_event_id: to, log: LOG.filter(e => e.id > S.lastExportedEventId) }) });
-  return { files, bodyIds: be.map(e => e.event_id), actIds: acts.map(a => a.activity_id), ckIds: cks.map(c => c.checkin_id), to };
+  return { files, bodyIds: be.map(e => e.event_id), actIds: acts.map(a => a.activity_id), ckIds: cks.map(c => c.checkin_id), delIds: dels.map(d => d.session_id), to };
 }
 async function deliver(files) {
   const fs = files.map(f => new File([f.text], f.name, { type: f.type || 'text/csv' }));
@@ -591,10 +605,10 @@ async function deliver(files) {
   return 'downloaded';
 }
 async function exportSessions(ids, label) {
-  const sessions = ids.map(i => S.sessions[i]).filter(s => s && !s.voided), { files, bodyIds, actIds, ckIds, to } = filesFor(sessions, label);
+  const sessions = ids.map(i => S.sessions[i]).filter(s => s && !s.voided), { files, bodyIds, actIds, ckIds, delIds, to } = filesFor(sessions, label);
   const how = await deliver(files);
   if (how === 'cancelled') return; // no banner for a cancel
-  await act('export', { kind: label, session_ids: ids, body_event_ids: bodyIds, activity_ids: actIds, checkin_ids: ckIds, max_event_id: label === 'all' ? 0 : to, how });
+  await act('export', { kind: label, session_ids: ids, body_event_ids: bodyIds, activity_ids: actIds, checkin_ids: ckIds, deleted_ids: delIds, max_event_id: label === 'all' ? 0 : to, how });
   toast(how === 'shared' ? 'Exported.' : `Downloaded ${files.length} files.`);
 }
 
@@ -647,6 +661,19 @@ document.addEventListener('click', async ev => {
     case 'void': ui.sheet = { type: 'void', sid: v }; render(); break;
     case 'voidgo': ui.sheet = null; await act('session_void', { session_id: v, void: true }); toast('Session voided.'); break;
     case 'unvoid': await act('session_void', { session_id: v, void: false }); toast('Session restored.'); break;
+    case 'del1': ui.sheet = { type: 'del1', sid: v }; render(); break;
+    case 'del2': ui.sheet = { type: 'del2', sid: v }; render(); break;
+    case 'delgo': {
+      ui.sheet = null;
+      try {
+        const n = await deleteWhere(e => e.data && e.data.session_id === v);
+        LOG = LOG.filter(e => !(e.data && e.data.session_id === v));
+        ui.view = 'history'; ui.historyId = null;
+        await act('session_deleted', { deleted_session_id: v });
+        toast(`Deleted permanently (${n} records).`);
+      } catch (e) { toast('Could not delete: ' + e, 5000, true); }
+      break;
+    }
     case 'w-': case 'w+': { const step = st ? st.variant.step_lb : 5; ui.w = num('w', a === 'w+' ? step : -step, 0); ui.touched = true; $('#w').classList.remove('ghost'); $('#r').classList.remove('ghost'); break; }
     case 'r-': case 'r+': { ui.r = num('r', a === 'r+' ? 1 : -1, 0, 1); ui.touched = true; $('#w').classList.remove('ghost'); $('#r').classList.remove('ghost'); break; }
     case 'rir': ui.rir = ui.rir === +v ? null : +v; document.querySelectorAll('#rir button').forEach(b => b.classList.toggle('on', +b.dataset.v === ui.rir)); $('#anchor').textContent = ui.rir !== null ? L.RIR_ANCHORS[ui.rir][1] : ''; break;

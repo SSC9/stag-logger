@@ -231,3 +231,8 @@ body.locked{position:fixed;left:0;right:0;overflow:hidden}
 .ckrow{display:grid;grid-template-columns:1fr 84px 84px;gap:8px;align-items:center;font-size:15px}
 .ckrow .ck{margin:0;text-align:center}
 .ckrow .ck:only-of-type{grid-column:2 / 4}
+
+/* ---- v0.4.1 ---- */
+.sdbtn{display:block;width:100%;margin:0 0 10px;border:0;border-radius:12px;background:var(--fill);color:var(--link);font-size:15px;font-weight:600;padding:11px 14px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdbtn.set{color:var(--tx);font-weight:500}
+.go.danger-out{background:none;color:var(--hot);border:1px solid color-mix(in srgb,var(--hot) 45%,transparent)}

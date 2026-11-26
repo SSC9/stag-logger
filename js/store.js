@@ -53,3 +53,12 @@ export function wipe() {
     req.onsuccess = req.onerror = req.onblocked = () => resolve();
   });
 }
+
+// Permanently delete every event matching pred. Only used by the user-confirmed "Delete permanently".
+export function deleteWhere(pred) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, 'readwrite'), req = tx.objectStore(STORE).openCursor(); let n = 0;
+    req.onsuccess = () => { const c = req.result; if (c) { if (pred(c.value)) { c.delete(); n++; } c.continue(); } };
+    tx.oncomplete = () => resolve(n); tx.onerror = tx.onabort = () => reject(tx.error);
+  });
+}

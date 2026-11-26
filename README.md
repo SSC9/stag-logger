@@ -1,4 +1,4 @@
-# STAG logger (V0.4)
+# STAG logger (V0.4.1)
 
 A phone-first workout logger for one person. Plain HTML and JavaScript, no backend, no accounts, no analytics. Every set is saved on the device the moment it is logged (IndexedDB). It works offline once installed on the iPhone home screen.
 
@@ -72,3 +72,8 @@ Generate `stag_baselines.csv` privately (the script lives in the Drive, not here
 - Left and right name the working limb (for example "Left leg (front)" on split squats).
 - Optional "Where" and "With" chips on Today before Start; remembered and editable later.
 - Monthly Body check-in: tape measurements in inches or cm, left and right where relevant, and a progress-photo prompt. Exported as `stag_body_checkins_*.csv`.
+
+## V0.4.1 changes
+- One "Session details" button on Today (where, who with) instead of two chips; it shows a short summary once filled.
+- History > session > **Delete permanently** (asks twice). Removes the session's records from the phone and keeps only its ID and the deletion time, exported as `stag_deletions_*.csv` so downstream copies can be dropped. Void is still there when you want to keep a record.
+- Service worker: installs fetch fresh files (no mix of old and new after an update), and exercise images are pre-cached for offline use.
