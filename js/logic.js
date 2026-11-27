@@ -1,7 +1,7 @@
 // Pure logic: folding the event log into state, week position, readiness rules, suggested
 // weights, left/right sets, rest state, timing derivation, streaks, and export rows.
 // No DOM, no storage.
-export const APP_VERSION = '0.4.1';
+export const APP_VERSION = '0.4.2';
 export const SCALES = { rir: 'rir_v1', readiness: 'readiness_v1', rpe: 'srpe_cr10_v1', severity: 'severity_v1' };
 export const REASONS = [
   ['failure', 'Hit failure'], ['gassed', 'Gassed'], ['pain', 'Pain'], ['time', 'Out of time'],

@@ -62,7 +62,7 @@ What was slow, what took too many taps, what you wanted on the card that was mis
 - [ ] Plan overview (grid icon, top right): statuses and the body map update as you go.
 - [ ] Skip a lift for "Gym too busy": offered Switch exercise, Do this lift later, Skip. "Later" moves it to the end.
 - [ ] Journal > Details: add Where and Who with; they appear on the summary and in History.
-- [ ] Other activity: log a tennis session; it appears in History.
+- [ ] Other activity: log a tennis session; it appears in History. (Since V0.4.2: Data & settings > Log a workout without the Watch.)
 - [ ] Soreness or pain: select several areas (body or list), set severities, Save once.
 - [ ] Change session effort from the summary or History.
 - [ ] Export: the share sheet shows the CSVs plus the events JSON, and no stray "STAG export" text file.
@@ -82,3 +82,7 @@ What was slow, what took too many taps, what you wanted on the card that was mis
 - [ ] Today shows one centered "Session details" button; after filling it, it shows the place and who.
 - [ ] Delete a test session permanently from History (two confirmations); it disappears and suggested weights no longer use it.
 - [ ] After updating, the app opens normally (no blank screen). In airplane mode, switch an exercise to a variant you have never opened: its image still shows.
+
+## V0.4.2 additions
+- [ ] Today no longer shows "Other activity". Data & settings has "Log a workout without the Watch"; a workout logged there still appears in History.
+- [ ] Record a non-lift workout on the Watch, tap the workout Shortcut, run the Mac scripts: it shows on that day in STAG Forage (once real mode is unlocked).

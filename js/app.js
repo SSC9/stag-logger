@@ -135,7 +135,6 @@ function viewToday(active) {
   </div>
   <div class="card links">
     <button class="lb" data-a="history">History</button>
-    <button class="lb" data-a="activityopen">Other activity</button>
     <button class="lb" data-a="bodyopen">Soreness or pain</button>
     <button class="lb" data-a="checkinopen">Body check-in${L.checkinDue(S) ? ' · due' : ''}</button>
     <button class="lb" data-a="settings">Data &amp; settings</button>
@@ -368,7 +367,7 @@ function viewSheet() {
     body = `${sheetHead(sh.target === 'workout' ? 'Workout journal' : 'Set journal')}${noteFields(sh.note, sh.tags)}${sh.target === 'workout' ? detailsFields(s.where, s.with) : ''}<button class="go" data-a="notesave">Save</button>`;
   } else if (sh.type === 'activity') {
     const a = ui.act;
-    body = `${sheetHead('Other activity')}<p class="sub small">Tennis, a run, a class. It shows on the same day as your lift.</p>
+    body = `${sheetHead('Workout without the Watch')}<p class="sub small">Only for workouts your Watch didn't record. Watch workouts reach STAG Forage on their own.</p>
       <div class="chips">${L.ACTIVITY_TYPES.map(t => `<button data-a="atype" data-v="${t}" class="${a.type === t ? 'on' : ''}">${t}</button>`).join('')}</div>
       <p class="lab">How long (minutes, ending now)</p><div class="st"><div class="v"><button data-a="adur-">−</button><input id="adur" type="number" inputmode="numeric" value="${a.dur}"><button data-a="adur+">+</button></div></div>
       <p class="lab">How hard overall (0–10, optional)</p><div class="seg n11">${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => `<button data-a="arpe" data-v="${n}" class="${a.rpe === n ? 'on' : ''}">${n}</button>`).join('')}</div>
@@ -403,6 +402,7 @@ function viewSheet() {
     body = `${sheetHead('Data &amp; settings')}
       <div class="kv"><span>Starting weights loaded</span><span>${Object.keys(S.baselines).length}</span></div>
       <label class="opt" style="margin-top:12px">Load starting-weights CSV<small>Stays on this phone. Columns: exercise_key, weight_lb, reps, date, source</small><input type="file" accept=".csv,text/csv" data-a="baselines" style="margin-top:8px"></label>
+      <button class="opt" data-a="activityopen">Log a workout without the Watch<small>Watch workouts are captured automatically</small></button>
       <button class="opt" data-a="exportall">Export everything (CSVs)<small>All sessions, sets, body events and activities</small></button>
       <button class="opt" data-a="backup">Save full backup (JSON)<small>Raw event log. Keep it private. Monthly is plenty.</small></button>
       <details><summary>Rest alerts (push)</summary><p class="sub small">${esc(relayStatus())}</p>

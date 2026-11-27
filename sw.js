@@ -1,5 +1,5 @@
 // Offline-first cache. Bump VERSION whenever a shipped file changes.
-const VERSION = 'stag-v0.4.1';
+const VERSION = 'stag-v0.4.2';
 const CORE = ['./', 'index.html', 'styles.css', 'manifest.webmanifest',
   'js/store.js', 'js/logic.js', 'js/csv.js', 'js/avatar.js', 'js/app.js', 'data/plan.json',
   'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
